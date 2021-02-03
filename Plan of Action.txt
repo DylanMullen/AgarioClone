@@ -1,0 +1,7 @@
+1. Create food
+	a. Create a circle factory.
+	b. Create a food object
+		i. Timeout time
+		ii. Food boost
+		iii. RGB value
+	c. Implement random generation.
