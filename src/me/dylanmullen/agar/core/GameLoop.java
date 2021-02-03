@@ -14,7 +14,6 @@ public class GameLoop implements Runnable
 
 	private AgarioClone app;
 	private boolean running;
-	private Circle circle;
 	private Shader shader;
 
 	public GameLoop(AgarioClone app)
@@ -68,13 +67,6 @@ public class GameLoop implements Runnable
 	public void render()
 	{
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		shader.start();
-		if (circle == null)
-		{
-			circle = new Circle();
-		} else
-			circle.renderCircle();
-		shader.stop();
 		GLFW.glfwSwapBuffers(app.getWindow().getWindowReference());
 
 	}
