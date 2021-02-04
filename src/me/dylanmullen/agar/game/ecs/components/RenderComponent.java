@@ -21,5 +21,15 @@ public class RenderComponent extends Component
 	{
 		return modelInfo;
 	}
-
+	
+	public PositionComponent getPositionComponent()
+	{
+		return positionComponent;
+	}
+	
+	public Shader getShader()
+	{
+		return shader;
+	}
+	
 }
