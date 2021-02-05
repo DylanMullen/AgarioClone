@@ -51,13 +51,6 @@ public class RenderSystem implements ISystem
 	// HIGHLY UNOPTIMIZED
 	public void handle()
 	{
-		shader.start();
-		shader.setViewMatrix(camera.getViewMatrix());
-		shader.setTransformationMatrix(chunk.getModelMatrix());
-		shader.setVector3f("chunkColour", chunk.getColour());
-		drawVAO(chunk.getChunkVAO());
-		shader.stop();
-
 		for (int i = 0; i < renderComponents.size(); i++)
 		{
 			RenderComponent component = renderComponents.get(i);

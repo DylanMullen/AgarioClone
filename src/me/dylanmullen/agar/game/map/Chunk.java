@@ -52,6 +52,11 @@ public class Chunk
 		matrix.scale(scale, 0, scale);
 		return matrix;
 	}
+	
+	public Vector3f getChunkPosition()
+	{
+		return chunkPosition;
+	}
 
 	public VAO getChunkVAO()
 	{

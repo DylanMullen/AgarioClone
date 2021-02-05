@@ -14,7 +14,7 @@ public class ControlComponent extends Component
 	{
 		this.positionComponent = position;
 	}
-	
+
 	public void handleInput(KeyboardHandler keyboard)
 	{
 		if (keyboard.isPressed(GLFW.GLFW_KEY_W))
@@ -31,7 +31,7 @@ public class ControlComponent extends Component
 	{
 		this.positionComponent.changePosition(moveVector);
 	}
-	
+
 	public PositionComponent getPositionComponent()
 	{
 		return positionComponent;
