@@ -5,6 +5,8 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
+import me.dylanmullen.agar.game.ecs.Entity;
+import me.dylanmullen.agar.game.ecs.components.PositionComponent;
 import me.dylanmullen.agar.window.input.InputController;
 import me.dylanmullen.agar.window.input.KeyboardHandler;
 import me.dylanmullen.agar.window.input.MouseHandler;
@@ -16,6 +18,9 @@ public class Camera
 	private Vector2f pitchYaw;
 	private KeyboardHandler keyboard;
 	private MouseHandler mouse;
+
+	private Entity focusedEntity;
+	private boolean focus;
 
 	private boolean moved;
 	private boolean movedChunk;
@@ -39,11 +44,32 @@ public class Camera
 		this.pitchYaw.add(0.5f, 0);
 	}
 
+	public void followEntity()
+	{
+		PositionComponent entityPosition = (PositionComponent) focusedEntity.getComponent(PositionComponent.class);
+		if (entityPosition == null)
+		{
+			focus = false;
+			focusedEntity = null;
+			return;
+		}
+		position.set(entityPosition.getPosition().x, position.y, entityPosition.getPosition().z);
+	}
+
+	public void focusEntity(Entity entity)
+	{
+		this.focusedEntity = entity;
+		this.focus = true;
+	}
+
 	public void update()
 	{
 		moved = false;
 		movedChunk = false;
-		handleInputs();
+		if (focus)
+			followEntity();
+//		else
+//			handleInputs();
 	}
 
 	private void handleInputs()
