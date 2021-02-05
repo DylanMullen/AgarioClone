@@ -2,11 +2,14 @@ package me.dylanmullen.agar.core;
 
 import java.awt.Dimension;
 
+import org.joml.Matrix4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 
-import me.dylanmullen.agar.graphics.opengl.Shader;
+import me.dylanmullen.agar.game.ecs.EntityHandler;
+import me.dylanmullen.agar.game.map.Chunk;
+import me.dylanmullen.agar.graphics.opengl.Camera;
 import me.dylanmullen.agar.window.Window;
 
 public class GameLoop implements Runnable
@@ -14,7 +17,12 @@ public class GameLoop implements Runnable
 
 	private AgarioClone app;
 	private boolean running;
-	private Shader shader;
+
+	private Camera camera;
+	private Matrix4f projection;
+	private Chunk chunk, player;
+
+	private EntityHandler entityHandler;
 
 	public GameLoop(AgarioClone app)
 	{
@@ -31,7 +39,9 @@ public class GameLoop implements Runnable
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
-		this.shader = new Shader("circle.vert", "circle.frag");
+
+		this.entityHandler = new EntityHandler(app.getWindow().getInputController());
+		entityHandler.createPlayer();
 
 		while (!GLFW.glfwWindowShouldClose(app.getWindow().getWindowReference()))
 		{
@@ -62,11 +72,19 @@ public class GameLoop implements Runnable
 	public void update()
 	{
 		GLFW.glfwPollEvents();
+		entityHandler.update();
 	}
 
 	public void render()
 	{
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		if (app.getWindow().getInputController().getKeyboard().isPressed(GLFW.GLFW_KEY_X))
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+		else
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
+
+		entityHandler.getRenderSystem().handle();
+		
 		GLFW.glfwSwapBuffers(app.getWindow().getWindowReference());
 
 	}

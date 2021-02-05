@@ -27,7 +27,6 @@ public class Window
 	{
 		this.title = title;
 		this.dimensions = dim;
-		setup();
 	}
 
 	private void setup()
