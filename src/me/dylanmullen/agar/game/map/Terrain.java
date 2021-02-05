@@ -23,7 +23,7 @@ public class Terrain
 	public Chunk loadChunk(Vector3f position)
 	{
 		float coordX = getChunkCoord(position.x);
-		float coordZ = getChunkCoord(position.y);
+		float coordZ = getChunkCoord(position.z);
 		Vector3f chunkPosition = new Vector3f(coordX, 0, coordZ);
 
 		Chunk chunk = getChunkFromPosition(chunkPosition);

@@ -19,24 +19,22 @@ import me.dylanmullen.agar.graphics.opengl.VAO;
 public class RenderSystem implements ISystem
 {
 
-	private List<RenderComponent> renderComponents;
+	private static List<RenderComponent> renderComponents = new ArrayList<RenderComponent>();
 
 	private Matrix4f projection;
 	private Camera camera;
 
-	private Shader shader;
+	public static Shader shader = new Shader("terrain.vert", "terrain.frag");
 	private Chunk chunk;
 
 	public RenderSystem(Camera camera)
 	{
 		this.camera = camera;
 
-		this.renderComponents = new ArrayList<RenderComponent>();
 		this.projection = createProjectionMatrix();
 		this.chunk = new Chunk(new Vector3f(0, 0, 0), 16);
-		this.shader = new Shader("terrain.vert", "terrain.frag");
 
-		this.shader.start();
+		shader.start();
 		shader.setProjectionMatrix(projection);
 		shader.stop();
 	}
@@ -51,6 +49,7 @@ public class RenderSystem implements ISystem
 	// HIGHLY UNOPTIMIZED
 	public void handle()
 	{
+		System.out.println(renderComponents.size());
 		for (int i = 0; i < renderComponents.size(); i++)
 		{
 			RenderComponent component = renderComponents.get(i);
@@ -73,7 +72,6 @@ public class RenderSystem implements ISystem
 		GL30.glBindVertexArray(0);
 	}
 
-	@Override
 	public void registerComponent(Component component)
 	{
 		if (!(component instanceof RenderComponent))
@@ -87,6 +85,14 @@ public class RenderSystem implements ISystem
 		if (!(component instanceof RenderComponent))
 			return;
 		renderComponents.remove((RenderComponent) component);
+	}
+	
+	
+	//TODO: REMOVE THIS. Debug only.
+	@Deprecated
+	public static List<RenderComponent> getRenderComponents()
+	{
+		return renderComponents;
 	}
 
 }

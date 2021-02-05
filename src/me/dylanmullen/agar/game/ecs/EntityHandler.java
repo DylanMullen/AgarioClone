@@ -10,6 +10,7 @@ import me.dylanmullen.agar.game.ecs.components.ControlComponent;
 import me.dylanmullen.agar.game.ecs.components.RenderComponent;
 import me.dylanmullen.agar.game.ecs.systems.ControlSystem;
 import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
+import me.dylanmullen.agar.game.map.TerrainController;
 import me.dylanmullen.agar.graphics.opengl.Camera;
 import me.dylanmullen.agar.window.input.InputController;
 
@@ -22,6 +23,7 @@ public class EntityHandler
 
 	private ControlSystem controlSystem;
 	private RenderSystem renderSystem;
+	private TerrainController terrain;
 
 	private InputController input;
 
@@ -32,6 +34,7 @@ public class EntityHandler
 		this.entities = new ArrayList<Entity>();
 		this.controlSystem = new ControlSystem(input.getKeyboard());
 		this.renderSystem = new RenderSystem(camera);
+		this.terrain = new TerrainController();
 	}
 
 	public void createPlayer()
@@ -44,12 +47,14 @@ public class EntityHandler
 
 	public void update()
 	{
-		if(input.getKeyboard().isPressed(GLFW.GLFW_KEY_SPACE))
+		if (input.getKeyboard().isPressed(GLFW.GLFW_KEY_SPACE))
 		{
 			camera.focusEntity(entities.get(0));
 		}
 		controlSystem.handle();
 		camera.update();
+
+		terrain.handleControlledEntity(entities.get(0));
 	}
 
 	public RenderSystem getRenderSystem()

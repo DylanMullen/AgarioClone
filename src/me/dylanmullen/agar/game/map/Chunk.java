@@ -4,6 +4,10 @@ import org.joml.Math;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
+import me.dylanmullen.agar.game.ecs.components.PositionComponent;
+import me.dylanmullen.agar.game.ecs.components.RenderComponent;
+import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
+import me.dylanmullen.agar.graphics.opengl.Model;
 import me.dylanmullen.agar.graphics.opengl.VAO;
 import me.dylanmullen.agar.util.BufferUtil;
 
@@ -43,6 +47,9 @@ public class Chunk
 		chunkVAO.storeVertices(BufferUtil.toFloatBuffer(verts), verts.length / 3);
 		chunkVAO.storeIndicesBuffer(indices);
 		chunkVAO.unbind();
+
+		RenderSystem.getRenderComponents().add(new RenderComponent(RenderSystem.shader, new Model(chunkVAO, scale),
+				new PositionComponent(chunkPosition)));
 	}
 
 	public Matrix4f getModelMatrix()
@@ -52,7 +59,7 @@ public class Chunk
 		matrix.scale(scale, 0, scale);
 		return matrix;
 	}
-	
+
 	public Vector3f getChunkPosition()
 	{
 		return chunkPosition;
@@ -62,7 +69,7 @@ public class Chunk
 	{
 		return chunkVAO;
 	}
-	
+
 	public Vector3f getColour()
 	{
 		return colour;

@@ -11,5 +11,5 @@ out vec3 colour;
 
 void main(void) {
 	gl_Position = projectionMatrix * viewMat * modelMat * vec4(position,1.0);
-	colour = chunkColour;
+	colour = vec3(1,1,0);
 }
