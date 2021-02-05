@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 import me.dylanmullen.agar.game.ecs.components.Component;
 import me.dylanmullen.agar.game.ecs.components.RenderComponent;
+import me.dylanmullen.agar.game.map.Chunk;
 import me.dylanmullen.agar.graphics.opengl.Camera;
+import me.dylanmullen.agar.graphics.opengl.Shader;
 import me.dylanmullen.agar.graphics.opengl.VAO;
 
 public class RenderSystem implements ISystem
@@ -21,12 +24,21 @@ public class RenderSystem implements ISystem
 	private Matrix4f projection;
 	private Camera camera;
 
+	private Shader shader;
+	private Chunk chunk;
+
 	public RenderSystem(Camera camera)
 	{
 		this.camera = camera;
 
 		this.renderComponents = new ArrayList<RenderComponent>();
 		this.projection = createProjectionMatrix();
+		this.chunk = new Chunk(new Vector3f(0, 0, 0), 16);
+		this.shader = new Shader("terrain.vert", "terrain.frag");
+
+		this.shader.start();
+		shader.setProjectionMatrix(projection);
+		shader.stop();
 	}
 
 	private Matrix4f createProjectionMatrix()
@@ -39,15 +51,23 @@ public class RenderSystem implements ISystem
 	// HIGHLY UNOPTIMIZED
 	public void handle()
 	{
+		shader.start();
+		shader.setViewMatrix(camera.getViewMatrix());
+		shader.setTransformationMatrix(chunk.getModelMatrix());
+		shader.setVector3f("chunkColour", chunk.getColour());
+		drawVAO(chunk.getChunkVAO());
+		shader.stop();
+
 		for (int i = 0; i < renderComponents.size(); i++)
 		{
 			RenderComponent component = renderComponents.get(i);
-			component.getShader().start();
-			component.getShader().setProjectionMatrix(projection);
-			component.getShader().setTransformationMatrix(component.getModelMatrix());
-			component.getShader().setViewMatrix(camera.getViewMatrix());
+			Shader componentShader = component.getShader();
+			componentShader.start();
+			componentShader.setProjectionMatrix(projection);
+			componentShader.setTransformationMatrix(component.getModelMatrix());
+			componentShader.setViewMatrix(camera.getViewMatrix());
 			drawVAO(component.getModel().getModelData());
-			component.getShader().stop();
+			componentShader.stop();
 		}
 	}
 

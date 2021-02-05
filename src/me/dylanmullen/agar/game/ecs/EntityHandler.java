@@ -40,7 +40,7 @@ public class EntityHandler
 
 	public void update()
 	{
-//		controlSystem.handle();
+		controlSystem.handle();
 		camera.update();
 	}
 

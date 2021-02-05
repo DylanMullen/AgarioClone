@@ -3,6 +3,7 @@ package me.dylanmullen.agar.core;
 import java.awt.Dimension;
 
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
@@ -10,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 import me.dylanmullen.agar.game.ecs.EntityHandler;
 import me.dylanmullen.agar.game.map.Chunk;
 import me.dylanmullen.agar.graphics.opengl.Camera;
+import me.dylanmullen.agar.graphics.opengl.Shader;
 import me.dylanmullen.agar.window.Window;
 
 public class GameLoop implements Runnable
@@ -21,6 +23,8 @@ public class GameLoop implements Runnable
 	private Camera camera;
 	private Matrix4f projection;
 	private Chunk chunk, player;
+
+	private Shader shader ;
 
 	private EntityHandler entityHandler;
 
@@ -84,7 +88,7 @@ public class GameLoop implements Runnable
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 
 		entityHandler.getRenderSystem().handle();
-		
+
 		GLFW.glfwSwapBuffers(app.getWindow().getWindowReference());
 
 	}

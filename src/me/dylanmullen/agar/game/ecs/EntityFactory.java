@@ -23,7 +23,7 @@ public class EntityFactory
 		PositionComponent positionComponent = new PositionComponent(position);
 		entity.addComponent(positionComponent);
 		
-		Shader shader = new Shader("terrain.vert", "terrain.frag");
+		Shader shader = new Shader("circle.vert", "circle.frag");
 		
 		entity.addComponent(new RenderComponent(shader, new Model(VAOFactory.createSquare(), 2f), positionComponent));
 		entity.addComponent(new ControlComponent(positionComponent));
