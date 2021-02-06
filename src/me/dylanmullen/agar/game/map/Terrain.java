@@ -22,14 +22,15 @@ public class Terrain
 
 	public Chunk loadChunk(Vector3f position)
 	{
-		float coordX = getChunkCoord(position.x);
-		float coordZ = getChunkCoord(position.z);
+		float coordX = getChunkCoordX(position.x);
+		float coordZ = getChunkCoordZ(position.z);
+		System.out.println((int) coordX + ":" + (int) coordZ);
 		Vector3f chunkPosition = new Vector3f(coordX, 0, coordZ);
 
 		Chunk chunk = getChunkFromPosition(chunkPosition);
 		if (chunk != null)
 			return chunk;
-		
+
 		chunk = new Chunk(chunkPosition, chunkWidth);
 		chunks.add(chunk);
 		return chunk;
@@ -46,9 +47,14 @@ public class Terrain
 		return null;
 	}
 
-	public float getChunkCoord(float input)
+	public float getChunkCoordX(float input)
 	{
-		return (int) (input / chunkWidth) * chunkWidth - (input < 0 ? chunkWidth : 0);
+		return (int) (input / 16f) * 16 - (input < 0 ? 16 : 0);
+	}
+
+	public float getChunkCoordZ(float input)
+	{
+		return (int) (input / 16f) * 16 + (input > 0 ? 16 : 0);
 	}
 
 }
