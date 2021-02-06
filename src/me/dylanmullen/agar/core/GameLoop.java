@@ -22,7 +22,6 @@ public class GameLoop implements Runnable
 
 	private Camera camera;
 	private Matrix4f projection;
-	private Chunk chunk, player;
 
 	private Shader shader ;
 

@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 import me.dylanmullen.agar.game.ecs.components.Component;
 import me.dylanmullen.agar.game.ecs.components.RenderComponent;
-import me.dylanmullen.agar.game.map.Chunk;
 import me.dylanmullen.agar.graphics.opengl.Camera;
 import me.dylanmullen.agar.graphics.opengl.Shader;
 import me.dylanmullen.agar.graphics.opengl.VAO;
@@ -25,14 +23,12 @@ public class RenderSystem implements ISystem
 	private Camera camera;
 
 	public static Shader shader = new Shader("terrain.vert", "terrain.frag");
-	private Chunk chunk;
 
 	public RenderSystem(Camera camera)
 	{
 		this.camera = camera;
 
 		this.projection = createProjectionMatrix();
-		this.chunk = new Chunk(new Vector3f(0, 0, 0), 16);
 
 		shader.start();
 		shader.setProjectionMatrix(projection);
@@ -49,7 +45,6 @@ public class RenderSystem implements ISystem
 	// HIGHLY UNOPTIMIZED
 	public void handle()
 	{
-		System.out.println(renderComponents.size());
 		for (int i = 0; i < renderComponents.size(); i++)
 		{
 			RenderComponent component = renderComponents.get(i);

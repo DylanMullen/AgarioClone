@@ -68,8 +68,8 @@ public class Camera
 		movedChunk = false;
 		if (focus)
 			followEntity();
-//		else
-//			handleInputs();
+		else
+			handleInputs();
 	}
 
 	private void handleInputs()
