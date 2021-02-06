@@ -48,9 +48,11 @@ public class EntityHandler
 	public void update()
 	{
 		if (input.getKeyboard().isPressed(GLFW.GLFW_KEY_SPACE))
-		{
-			camera.focusEntity(entities.get(0));
-		}
+			if (camera.isFocused())
+				camera.unfocusEntity();
+			else
+				camera.focusEntity(entities.get(0));
+
 		controlSystem.handle();
 		camera.update();
 

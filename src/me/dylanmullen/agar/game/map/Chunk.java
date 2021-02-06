@@ -19,6 +19,8 @@ public class Chunk
 	private VAO chunkVAO;
 	private float scale;
 
+	private RenderComponent renderingComponent;
+
 	public Chunk(Vector3f chunkPosition, float scale)
 	{
 		this.chunkPosition = chunkPosition;
@@ -48,8 +50,16 @@ public class Chunk
 		chunkVAO.storeIndicesBuffer(indices);
 		chunkVAO.unbind();
 
-		RenderSystem.getRenderComponents().add(new RenderComponent(RenderSystem.shader, new Model(chunkVAO, scale),
-				new PositionComponent(chunkPosition)));
+		this.renderingComponent = new RenderComponent(RenderSystem.shader, new Model(chunkVAO, scale),
+				new PositionComponent(chunkPosition));
+
+		RenderSystem.getRenderComponents().add(renderingComponent);
+	}
+
+	public void unload()
+	{
+		RenderSystem.getRenderComponents().remove(renderingComponent);
+		this.chunkVAO.delete();
 	}
 
 	public Matrix4f getModelMatrix()

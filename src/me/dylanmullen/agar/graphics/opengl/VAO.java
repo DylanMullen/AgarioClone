@@ -12,6 +12,7 @@ import java.util.List;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL30;
 
 import me.dylanmullen.agar.util.BufferUtil;
 
@@ -27,6 +28,13 @@ public class VAO
 	{
 		this.vaoID = glGenVertexArrays();
 		this.vbos = new ArrayList<Integer>();
+	}
+
+	public void delete()
+	{
+		GL30.glDeleteVertexArrays(vaoID);
+
+		vbos.stream().forEach(e -> GL30.glDeleteBuffers(e));
 	}
 
 	public void bind()
@@ -53,7 +61,6 @@ public class VAO
 	{
 		storeData(0, buffer);
 		this.count = count;
-		System.out.println(count);
 	}
 
 	public void storeIndicesBuffer(int[] indices)

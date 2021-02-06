@@ -62,6 +62,12 @@ public class Camera
 		this.focus = true;
 	}
 
+	public void unfocusEntity()
+	{
+		this.focus = false;
+		this.focusedEntity = null;
+	}
+
 	public void update()
 	{
 		moved = false;
@@ -111,6 +117,11 @@ public class Camera
 	public boolean hasMovedChunk()
 	{
 		return movedChunk;
+	}
+
+	public boolean isFocused()
+	{
+		return focus;
 	}
 
 }

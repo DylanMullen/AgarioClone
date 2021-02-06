@@ -20,6 +20,7 @@ public class TerrainController
 
 		PositionComponent position = (PositionComponent) controlledEntity.getComponent(PositionComponent.class);
 		terrain.loadSurroundingChunks(position.getPosition());
+		terrain.unloadChunks(position.getPosition());
 	}
 
 	public Terrain getTerrain()
