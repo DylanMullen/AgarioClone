@@ -8,6 +8,7 @@ import org.lwjgl.glfw.GLFW;
 
 import me.dylanmullen.agar.game.ecs.components.ControlComponent;
 import me.dylanmullen.agar.game.ecs.components.RenderComponent;
+import me.dylanmullen.agar.game.ecs.systems.CollisionSystem;
 import me.dylanmullen.agar.game.ecs.systems.ControlSystem;
 import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
 import me.dylanmullen.agar.game.map.TerrainController;
@@ -23,6 +24,8 @@ public class EntityHandler
 
 	private ControlSystem controlSystem;
 	private RenderSystem renderSystem;
+	private CollisionSystem collisionSystem;
+
 	private TerrainController terrain;
 
 	private InputController input;
@@ -34,6 +37,7 @@ public class EntityHandler
 		this.entities = new ArrayList<Entity>();
 		this.controlSystem = new ControlSystem(input.getKeyboard());
 		this.renderSystem = new RenderSystem(camera);
+		this.collisionSystem = new CollisionSystem();
 		this.terrain = new TerrainController();
 	}
 

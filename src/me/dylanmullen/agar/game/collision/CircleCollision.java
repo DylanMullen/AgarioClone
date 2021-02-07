@@ -16,6 +16,18 @@ public class CircleCollision implements Collision
 		this.solid = solid;
 	}
 
+	@Override
+	public boolean collide(Object target)
+	{
+		if (target instanceof Vector2f)
+			return isColliding((Vector2f) target);
+		if (target instanceof SquareCollision)
+			return isColliding((SquareCollision) target);
+		if (target instanceof CircleCollision)
+			return isColliding((CircleCollision) target);
+		return false;
+	}
+
 	public boolean isColliding(Vector2f point)
 	{
 		float distanceToPoint = (float) Math

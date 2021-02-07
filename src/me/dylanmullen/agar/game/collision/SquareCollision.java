@@ -22,6 +22,18 @@ public class SquareCollision implements Collision
 		this.solid = solid;
 	}
 
+	@Override
+	public boolean collide(Object target)
+	{
+		if (target instanceof Vector2f)
+			return isColliding((Vector2f) target);
+		if (target instanceof SquareCollision)
+			return isColliding((SquareCollision) target);
+		if (target instanceof CircleCollision)
+			return isColliding((CircleCollision) target);
+		return false;
+	}
+
 	public boolean isColliding(Vector2f point)
 	{
 		return (point.x <= topLeft.x && point.x >= bottomRight.x) && (point.y <= topLeft.y && point.y >= bottomRight.y);
@@ -31,6 +43,15 @@ public class SquareCollision implements Collision
 	{
 		return (boundingSquare.bottomRight.x <= topLeft.x && boundingSquare.topLeft.x >= bottomRight.x)
 				&& (boundingSquare.bottomRight.y <= topLeft.y && boundingSquare.topLeft.y >= bottomRight.y);
+	}
+
+	public boolean isColliding(CircleCollision circle)
+	{
+		float x = Math.max(getBottomRight().x, Math.min(circle.getOrigin().x, getTopLeft().x));
+		float y = Math.max(getBottomRight().y, Math.min(circle.getOrigin().y, getTopLeft().y));
+		float distance = (float) Math.sqrt(((x - circle.getOrigin().x) * (x - circle.getOrigin().x))
+				+ ((y - circle.getOrigin().y) * (y - circle.getOrigin().y)));
+		return distance < circle.getRadius();
 	}
 
 	public boolean isSolid()

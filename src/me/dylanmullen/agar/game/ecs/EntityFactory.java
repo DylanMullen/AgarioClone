@@ -2,6 +2,7 @@ package me.dylanmullen.agar.game.ecs;
 
 import org.joml.Vector3f;
 
+import me.dylanmullen.agar.game.ecs.components.CollisionComponent;
 import me.dylanmullen.agar.game.ecs.components.ControlComponent;
 import me.dylanmullen.agar.game.ecs.components.HealthComponent;
 import me.dylanmullen.agar.game.ecs.components.PositionComponent;
