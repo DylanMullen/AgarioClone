@@ -9,10 +9,10 @@ public class VAOFactory
 	{
 		float[] verts =
 		{
-				0, 0, 0, //
-				1, 0, 0, //
-				0, 0, -1, //
-				1, 0, -1
+				-0.5f, 0, 0.5f, //
+				0.5f, 0, 0.5f, //
+				-0.5f, 0, -0.5f, //
+				0.5f, 0, -0.5f
 		};
 
 		int[] indices =

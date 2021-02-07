@@ -1,16 +1,21 @@
 package me.dylanmullen.agar.game.ecs.components;
 
 import org.joml.Matrix4f;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class PositionComponent implements Component
 {
 
 	private Vector3f position;
+	private Vector2f movementVector;
+
+	private boolean moved;
 
 	public PositionComponent(Vector3f position)
 	{
 		this.position = position;
+		this.movementVector = new Vector2f();
 	}
 
 	public void setPosition(Vector3f position)
@@ -21,6 +26,8 @@ public class PositionComponent implements Component
 	public void changePosition(Vector3f moveVector)
 	{
 		this.position = this.position.add(moveVector);
+		this.movementVector = new Vector2f(moveVector.x, moveVector.z);
+		this.moved = true;
 	}
 
 	public Matrix4f getMatrix()
@@ -33,6 +40,21 @@ public class PositionComponent implements Component
 	public Vector3f getPosition()
 	{
 		return position;
+	}
+
+	public Vector2f getMovementVector()
+	{
+		return movementVector;
+	}
+
+	public boolean hasMoved()
+	{
+		return moved;
+	}
+
+	public void setMoved(boolean moved)
+	{
+		this.moved = moved;
 	}
 
 }

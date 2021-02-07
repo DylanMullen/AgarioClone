@@ -9,6 +9,7 @@ public class ControlComponent implements Component
 {
 
 	private PositionComponent positionComponent;
+	private CollisionComponent collisionComponent;
 
 	public ControlComponent(PositionComponent position)
 	{
@@ -17,6 +18,8 @@ public class ControlComponent implements Component
 
 	public void handleInput(KeyboardHandler keyboard)
 	{
+		this.positionComponent.setMoved(false);
+		
 		if (keyboard.isPressed(GLFW.GLFW_KEY_W))
 			move(new Vector3f(0f, 0f, -0.5f));
 		if (keyboard.isPressed(GLFW.GLFW_KEY_A))

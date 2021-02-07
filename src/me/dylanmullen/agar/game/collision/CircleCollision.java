@@ -51,6 +51,12 @@ public class CircleCollision implements Collision
 		return distance < radius;
 	}
 
+	@Override
+	public void updatePositions(Vector2f movementVector)
+	{
+		this.origin = getOrigin().add(movementVector);
+	}
+
 	public Vector2f getOrigin()
 	{
 		return origin;

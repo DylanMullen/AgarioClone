@@ -3,8 +3,13 @@ package me.dylanmullen.agar.game.ecs.systems;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+
+import me.dylanmullen.agar.game.collision.SquareCollision;
 import me.dylanmullen.agar.game.ecs.components.CollisionComponent;
 import me.dylanmullen.agar.game.ecs.components.Component;
+import me.dylanmullen.agar.game.ecs.components.PositionComponent;
 
 public class CollisionSystem implements ISystem
 {
@@ -14,6 +19,10 @@ public class CollisionSystem implements ISystem
 	public CollisionSystem()
 	{
 		this.components = new ArrayList<CollisionComponent>();
+
+		CollisionComponent component = new CollisionComponent(new PositionComponent(new Vector3f(0, 0, 0)),
+				new SquareCollision(new Vector2f(-10, 10), new Vector2f(10, -10)));
+		registerComponent(component);
 	}
 
 	@Override
@@ -21,13 +30,19 @@ public class CollisionSystem implements ISystem
 	{
 		// TODO: REMOVE THIS O(n^2)
 		for (CollisionComponent current : components)
+		{
 			for (CollisionComponent target : components)
 			{
 				if (current.equals(target))
-					return;
-				if (current.getCollision().collide(target.getCollision()))
+					continue;
+				
+				if (current.getPosition().hasMoved())
+					current.updatePosition(current.getPosition().getMovementVector());
+				
+				if (target.getCollision().collide(current.getCollision()))
 					System.out.println("colliding");
 			}
+		}
 	}
 
 	@Override

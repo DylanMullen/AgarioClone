@@ -6,6 +6,7 @@ import java.util.List;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
+import me.dylanmullen.agar.game.ecs.components.CollisionComponent;
 import me.dylanmullen.agar.game.ecs.components.ControlComponent;
 import me.dylanmullen.agar.game.ecs.components.RenderComponent;
 import me.dylanmullen.agar.game.ecs.systems.CollisionSystem;
@@ -45,6 +46,7 @@ public class EntityHandler
 	{
 		Entity player = EntityFactory.createPlayerEntity(new Vector3f(0, 1, 0));
 		controlSystem.registerComponent(player.getComponent(ControlComponent.class));
+		collisionSystem.registerComponent(player.getComponent(CollisionComponent.class));
 		renderSystem.registerComponent(player.getComponent(RenderComponent.class));
 		entities.add(player);
 	}
@@ -58,8 +60,9 @@ public class EntityHandler
 				camera.focusEntity(entities.get(0));
 
 		controlSystem.handle();
-		camera.update();
+		collisionSystem.handle();
 
+		camera.update();
 		terrain.handleControlledEntity(entities.get(0));
 	}
 
