@@ -36,4 +36,16 @@ public class EntityFactory
 		return entity;
 	}
 
+	public static Entity createFoodEntity(Vector3f position)
+	{
+		Entity entity = new Entity();
+		PositionComponent positionComponent = new PositionComponent(position);
+		entity.addComponent(positionComponent);
+
+		Shader shader = new Shader("circle.vert", "circle.frag");
+		entity.addComponent(
+				new RenderComponent(shader, new Model(VAOFactory.createVerticalRectangle(), 1f), positionComponent));
+
+		return entity;
+	}
 }

@@ -27,4 +27,25 @@ public class VAOFactory
 		return vao;
 	}
 
+	public static VAO createVerticalRectangle()
+	{
+		float[] verts =
+		{
+				-0.5f, 0, 1, //
+				0.5f, 0, 1, //
+				-0.5f, 0, -1, //
+				0.5f, 0, -1
+		};
+		int[] indices =
+		{
+				0, 1, 2, 2, 1, 3
+		};
+		VAO vao = new VAO();
+		vao.bind();
+		vao.storeVertices(BufferUtil.toFloatBuffer(verts), verts.length / 3);
+		vao.storeIndicesBuffer(indices);
+		vao.unbind();
+		return vao;
+	}
+
 }

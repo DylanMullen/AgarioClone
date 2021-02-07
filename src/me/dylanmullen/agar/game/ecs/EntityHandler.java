@@ -12,6 +12,7 @@ import me.dylanmullen.agar.game.ecs.components.RenderComponent;
 import me.dylanmullen.agar.game.ecs.systems.CollisionSystem;
 import me.dylanmullen.agar.game.ecs.systems.ControlSystem;
 import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
+import me.dylanmullen.agar.game.generation.FoodGenerator;
 import me.dylanmullen.agar.game.map.TerrainController;
 import me.dylanmullen.agar.graphics.opengl.Camera;
 import me.dylanmullen.agar.window.input.InputController;
@@ -28,6 +29,7 @@ public class EntityHandler
 	private CollisionSystem collisionSystem;
 
 	private TerrainController terrain;
+	private FoodGenerator foodGen;
 
 	private InputController input;
 
@@ -40,6 +42,8 @@ public class EntityHandler
 		this.renderSystem = new RenderSystem(camera);
 		this.collisionSystem = new CollisionSystem();
 		this.terrain = new TerrainController();
+		this.foodGen = new FoodGenerator(terrain.getTerrain());
+		foodGen.generateFood();
 	}
 
 	public void createPlayer()

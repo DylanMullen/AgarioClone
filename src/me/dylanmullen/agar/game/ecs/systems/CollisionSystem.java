@@ -21,7 +21,7 @@ public class CollisionSystem implements ISystem
 		this.components = new ArrayList<CollisionComponent>();
 
 		CollisionComponent component = new CollisionComponent(new PositionComponent(new Vector3f(0, 0, 0)),
-				new SquareCollision(new Vector2f(-10, 10), new Vector2f(10, -10)));
+				new SquareCollision(new Vector2f(-1, 1), new Vector2f(1, -1)));
 		registerComponent(component);
 	}
 
@@ -35,12 +35,10 @@ public class CollisionSystem implements ISystem
 			{
 				if (current.equals(target))
 					continue;
-				
 				if (current.getPosition().hasMoved())
 					current.updatePosition(current.getPosition().getMovementVector());
-				
-				if (target.getCollision().collide(current.getCollision()))
-					System.out.println("colliding");
+//				if (target.getCollision().collide(current.getCollision()))
+					
 			}
 		}
 	}
