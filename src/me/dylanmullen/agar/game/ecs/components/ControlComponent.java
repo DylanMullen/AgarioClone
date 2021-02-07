@@ -5,7 +5,7 @@ import org.lwjgl.glfw.GLFW;
 
 import me.dylanmullen.agar.window.input.KeyboardHandler;
 
-public class ControlComponent extends Component
+public class ControlComponent implements Component
 {
 
 	private PositionComponent positionComponent;

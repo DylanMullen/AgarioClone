@@ -1,6 +1,6 @@
 package me.dylanmullen.agar.game.ecs.components;
 
-public class HealthComponent extends Component
+public class HealthComponent implements Component
 {
 
 	private double health;

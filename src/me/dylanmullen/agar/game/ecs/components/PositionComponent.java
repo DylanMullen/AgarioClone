@@ -3,7 +3,7 @@ package me.dylanmullen.agar.game.ecs.components;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-public class PositionComponent extends Component
+public class PositionComponent implements Component
 {
 
 	private Vector3f position;

@@ -5,7 +5,7 @@ import org.joml.Matrix4f;
 import me.dylanmullen.agar.graphics.opengl.Model;
 import me.dylanmullen.agar.graphics.opengl.Shader;
 
-public class RenderComponent extends Component
+public class RenderComponent implements Component
 {
 
 	private Shader shader;

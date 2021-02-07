@@ -1,6 +1,6 @@
 package me.dylanmullen.agar.game.ecs.components;
 
-public interface Component
+public class CollisionComponent implements Component
 {
 
 }
