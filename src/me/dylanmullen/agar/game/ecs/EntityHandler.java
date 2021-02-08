@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.joml.Vector3f;
-
 import me.dylanmullen.agar.window.input.InputController;
 
 public class EntityHandler
 {
+	
 
 	private Entity focusedEntity;
 

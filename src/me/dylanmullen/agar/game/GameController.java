@@ -15,6 +15,8 @@ import me.dylanmullen.agar.window.input.InputController;
 public class GameController
 {
 
+	private static GameController instance;
+
 	private Camera camera;
 
 	private EntityHandler entityHandler;
@@ -27,7 +29,14 @@ public class GameController
 
 	public GameController(InputController input)
 	{
+		if (instance == null)
+			instance = this;
 		init(input);
+	}
+	
+	public static GameController getInstance()
+	{
+		return instance;
 	}
 
 	private void init(InputController input)
@@ -50,9 +59,7 @@ public class GameController
 		collisionSystem.handle();
 
 		camera.update();
-
-		if (entityHandler.getFocusedEntity() != null)
-			this.terrainController.handleControlledEntity(entityHandler.getFocusedEntity());
+		terrainController.update();
 	}
 
 	public void render()

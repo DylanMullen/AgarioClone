@@ -50,6 +50,10 @@ public class EntityFactory
 		Shader shader = new Shader("circle.vert", "circle.frag");
 		entity.addComponent(
 				new RenderComponent(shader, new Model(VAOFactory.createVerticalRectangle(), 1f), positionComponent));
+
+		for (Component component : entity.getComponents())
+			component.load();
+
 		return entity;
 	}
 }
