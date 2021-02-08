@@ -5,6 +5,7 @@ import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.dylanmullen.agar.game.ecs.systems.CollisionSystem;
 import me.dylanmullen.agar.game.events.events.Event;
 
 public class EventListenerInfo
@@ -28,11 +29,12 @@ public class EventListenerInfo
 		{
 			if (!method.isAnnotationPresent(EventListener.class))
 				continue;
+
 			if (method.getParameters().length > 1)
 				continue;
 
 			Parameter parameters = method.getParameters()[0];
-			if (!(parameters.getType().isAssignableFrom(Event.class)))
+			if (!(Event.class.isAssignableFrom(parameters.getType())))
 				continue;
 			eventListeners.put(parameters, method);
 		}
@@ -47,7 +49,7 @@ public class EventListenerInfo
 		}
 		return null;
 	}
-	
+
 	public Listener getListener()
 	{
 		return listener;

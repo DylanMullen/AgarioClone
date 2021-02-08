@@ -34,7 +34,6 @@ public class EventHandler
 
 	public void fireEvent(Event event)
 	{
-		System.out.println("fired");
 		for (EventListenerInfo listener : eventListeners)
 		{
 			Method method = listener.getEventMethod(event);
@@ -46,7 +45,7 @@ public class EventHandler
 				method.invoke(listener.getListener(), event);
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 			{
-				System.err.println("Failed to fire event");
+				e.printStackTrace();
 			}
 		}
 	}

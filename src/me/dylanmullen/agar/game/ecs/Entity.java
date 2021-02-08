@@ -36,6 +36,11 @@ public class Entity
 		return null;
 	}
 
+	public boolean hasComponent(Class<? extends Component> klass)
+	{
+		return getComponent(klass) != null;
+	}
+
 	public UUID getUUID()
 	{
 		return uuid;

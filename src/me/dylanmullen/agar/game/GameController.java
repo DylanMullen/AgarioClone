@@ -8,6 +8,8 @@ import me.dylanmullen.agar.game.ecs.EntityHandler;
 import me.dylanmullen.agar.game.ecs.systems.CollisionSystem;
 import me.dylanmullen.agar.game.ecs.systems.ControlSystem;
 import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
+import me.dylanmullen.agar.game.events.EventHandler;
+import me.dylanmullen.agar.game.events.PlayerListener;
 import me.dylanmullen.agar.game.map.TerrainController;
 import me.dylanmullen.agar.graphics.opengl.Camera;
 import me.dylanmullen.agar.window.input.InputController;
@@ -26,6 +28,7 @@ public class GameController
 	private ControlSystem controlSystem;
 
 	private TerrainController terrainController;
+	private PlayerListener listener;
 
 	public GameController(InputController input)
 	{
@@ -33,7 +36,7 @@ public class GameController
 			instance = this;
 		init(input);
 	}
-	
+
 	public static GameController getInstance()
 	{
 		return instance;
@@ -51,13 +54,16 @@ public class GameController
 		Entity player = EntityFactory.createPlayerEntity(new Vector3f(0, 0, 0));
 		this.entityHandler.addEntity(player);
 		this.entityHandler.setFocusedEntity(player);
+
+		this.listener = new PlayerListener(player);
+		EventHandler.getInstance().registerListener(listener);
 	}
 
 	public void update()
 	{
 		controlSystem.handle();
 		collisionSystem.handle();
-		
+
 		camera.update();
 		terrainController.update();
 	}
@@ -75,5 +81,25 @@ public class GameController
 	public TerrainController getTerrainController()
 	{
 		return terrainController;
+	}
+
+	public CollisionSystem getCollisionSystem()
+	{
+		return collisionSystem;
+	}
+
+	public Camera getCamera()
+	{
+		return camera;
+	}
+
+	public ControlSystem getControlSystem()
+	{
+		return controlSystem;
+	}
+
+	public RenderSystem getRenderSystem()
+	{
+		return renderSystem;
 	}
 }
