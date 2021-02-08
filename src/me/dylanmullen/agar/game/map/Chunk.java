@@ -9,6 +9,7 @@ import me.dylanmullen.agar.game.ecs.components.RenderComponent;
 import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
 import me.dylanmullen.agar.graphics.opengl.Model;
 import me.dylanmullen.agar.graphics.opengl.VAO;
+import me.dylanmullen.agar.graphics.opengl.VAOFactory;
 import me.dylanmullen.agar.util.BufferUtil;
 
 public class Chunk
@@ -25,31 +26,13 @@ public class Chunk
 	{
 		this.chunkPosition = chunkPosition;
 		this.colour = new Vector3f((float) Math.random(), (float) Math.random(), (float) Math.random());
-		this.chunkVAO = new VAO();
+		this.chunkVAO = VAOFactory.createSquare();
 		this.scale = scale;
 		init();
 	}
 
 	private void init()
 	{
-		float[] verts =
-		{
-				0, 0, 0, //
-				1, 0, 0, //
-				0, 0, -1, //
-				1, 0, -1
-		};
-
-		int[] indices =
-		{
-				0, 1, 2, 2, 1, 3
-		};
-
-		chunkVAO.bind();
-		chunkVAO.storeVertices(BufferUtil.toFloatBuffer(verts), verts.length / 3);
-		chunkVAO.storeIndicesBuffer(indices);
-		chunkVAO.unbind();
-
 		this.renderingComponent = new RenderComponent(RenderSystem.shader, new Model(chunkVAO, scale),
 				new PositionComponent(chunkPosition));
 

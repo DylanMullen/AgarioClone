@@ -23,10 +23,7 @@ public class Terrain
 
 	public Chunk loadChunk(Vector3f position)
 	{
-		float coordX = getChunkCoordX(position.x);
-		float coordZ = getChunkCoordZ(position.z);
-		Vector3f chunkPosition = new Vector3f(coordX, 0, coordZ);
-
+		Vector3f chunkPosition = getChunkPosition(position);
 		Chunk chunk = getChunkFromPosition(chunkPosition);
 		if (chunk != null)
 			return chunk;
@@ -80,12 +77,12 @@ public class Terrain
 
 	public int getChunkCoordX(float input)
 	{
-		return (int) (input / 16f) * 16 - (input < 0 ? 16 : 0);
+		return (int) (input / 16f) * 16;
 	}
 
 	public int getChunkCoordZ(float input)
 	{
-		return (int) (input / 16f) * 16 + (input > 0 ? 16 : 0);
+		return (int) (input / 16f) * 16;
 	}
 
 	public void loadSurroundingChunks(Vector3f position)
@@ -98,17 +95,17 @@ public class Terrain
 	private void loadSides(Vector3f chunkCoords)
 	{
 		loadChunk(new Vector3f(chunkCoords.x + 16, 0, chunkCoords.z));
-		loadChunk(new Vector3f(chunkCoords.x - 8, 0, chunkCoords.z));
-		loadChunk(new Vector3f(chunkCoords.x, 0, chunkCoords.z + 8));
+		loadChunk(new Vector3f(chunkCoords.x - 16, 0, chunkCoords.z));
+		loadChunk(new Vector3f(chunkCoords.x, 0, chunkCoords.z + 16));
 		loadChunk(new Vector3f(chunkCoords.x, 0, chunkCoords.z - 16));
 	}
 
 	private void loadCorners(Vector3f chunkCoords)
 	{
-		loadChunk(new Vector3f(chunkCoords.x - 8, 0, chunkCoords.z - 16)); // Top left
-		loadChunk(new Vector3f(chunkCoords.x - 8, 0, chunkCoords.z + 8)); // bottom left
+		loadChunk(new Vector3f(chunkCoords.x - 16, 0, chunkCoords.z - 16)); // Top left
+		loadChunk(new Vector3f(chunkCoords.x - 16, 0, chunkCoords.z + 16)); // bottom left
 		loadChunk(new Vector3f(chunkCoords.x + 16, 0, chunkCoords.z - 16)); // top right
-		loadChunk(new Vector3f(chunkCoords.x + 16, 0, chunkCoords.z + 8)); // bottom right
+		loadChunk(new Vector3f(chunkCoords.x + 16, 0, chunkCoords.z + 16)); // bottom right
 	}
 
 	private boolean intersects(Vector3f high, Vector3f low, Vector3f position)

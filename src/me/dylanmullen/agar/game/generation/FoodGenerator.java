@@ -11,16 +11,22 @@ public class FoodGenerator
 
 //	private Terrain terrain;
 
+	private int currentFood;
+
 	public FoodGenerator(Terrain terrain)
 	{
 	}
 
 	public void generateFood()
 	{
+		if (currentFood > 5)
+			return;
+		
 		Random random = new Random();
 		float x = -10 + random.nextFloat() * (10 - -10);
 		float y = -10 + random.nextFloat() * (10 - -10);
 		EntityFactory.createFoodEntity(new Vector3f(x, 1f, y));
+		currentFood++;
 	}
 
 }

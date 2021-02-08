@@ -57,7 +57,7 @@ public class GameController
 	{
 		controlSystem.handle();
 		collisionSystem.handle();
-
+		
 		camera.update();
 		terrainController.update();
 	}

@@ -20,6 +20,7 @@ public class TerrainController
 	public void update()
 	{
 		updateLoadedChunks();
+		foodGenerator.generateFood();
 	}
 
 	private void updateLoadedChunks()
