@@ -33,10 +33,8 @@ public class CollisionSystem implements ISystem
 			if (current.getPosition().hasMoved())
 				current.updatePosition(current.getPosition().getMovementVector());
 			if (current.getCollision().collide(target.getCollision()))
-			{
 				EventHandler.getInstance()
 						.fireEvent(new CollisionEvent(current.getEntityUUID(), target.getEntityUUID()));
-			}
 		}
 	}
 
