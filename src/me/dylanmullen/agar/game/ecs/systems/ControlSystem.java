@@ -10,13 +10,22 @@ import me.dylanmullen.agar.window.input.KeyboardHandler;
 public class ControlSystem implements ISystem
 {
 
+	private static ControlSystem instance;
+	
 	private KeyboardHandler keyboard;
 	private List<ControlComponent> controlComponents;
 
 	public ControlSystem(KeyboardHandler keyboard)
 	{
+		if(instance ==null)
+			instance = this;
 		this.keyboard = keyboard;
 		this.controlComponents = new ArrayList<ControlComponent>();
+	}
+	
+	public static ControlSystem getInstance()
+	{
+		return instance;
 	}
 
 	public void handle()

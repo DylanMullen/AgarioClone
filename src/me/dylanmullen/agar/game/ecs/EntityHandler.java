@@ -2,82 +2,55 @@ package me.dylanmullen.agar.game.ecs;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.joml.Vector3f;
-import org.lwjgl.glfw.GLFW;
 
-import me.dylanmullen.agar.game.ecs.components.CollisionComponent;
-import me.dylanmullen.agar.game.ecs.components.ControlComponent;
-import me.dylanmullen.agar.game.ecs.components.RenderComponent;
-import me.dylanmullen.agar.game.ecs.systems.CollisionSystem;
-import me.dylanmullen.agar.game.ecs.systems.ControlSystem;
-import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
-import me.dylanmullen.agar.game.generation.FoodGenerator;
-import me.dylanmullen.agar.game.map.TerrainController;
-import me.dylanmullen.agar.graphics.opengl.Camera;
 import me.dylanmullen.agar.window.input.InputController;
 
 public class EntityHandler
 {
 
+	private Entity focusedEntity;
+
 	private List<Entity> entities;
-
-	private Camera camera;
-
-	private ControlSystem controlSystem;
-	private RenderSystem renderSystem;
-	private CollisionSystem collisionSystem;
-
-	private TerrainController terrain;
-	private FoodGenerator foodGen;
-
-	private InputController input;
 
 	public EntityHandler(InputController input)
 	{
-		this.input = input;
-		this.camera = new Camera(input);
+		this.focusedEntity = null;
 		this.entities = new ArrayList<Entity>();
-		this.controlSystem = new ControlSystem(input.getKeyboard());
-		this.renderSystem = new RenderSystem(camera);
-		this.collisionSystem = new CollisionSystem();
-		this.terrain = new TerrainController();
-		this.foodGen = new FoodGenerator(terrain.getTerrain());
-		foodGen.generateFood();
 	}
 
-	public void createPlayer()
+	public void addEntity(Entity entity)
 	{
-		Entity player = EntityFactory.createPlayerEntity(new Vector3f(0, 1, 0));
-		controlSystem.registerComponent(player.getComponent(ControlComponent.class));
-		collisionSystem.registerComponent(player.getComponent(CollisionComponent.class));
-		renderSystem.registerComponent(player.getComponent(RenderComponent.class));
-		entities.add(player);
+		if (getEntity(entity.getUUID()) != null)
+			return;
+		entities.add(entity);
 	}
 
-	public void update()
+	public void removeEntity(Entity entity)
 	{
-		if (input.getKeyboard().isPressed(GLFW.GLFW_KEY_SPACE))
-			if (camera.isFocused())
-				camera.unfocusEntity();
-			else
-				camera.focusEntity(entities.get(0));
-
-		controlSystem.handle();
-		collisionSystem.handle();
-
-		camera.update();
-		terrain.handleControlledEntity(entities.get(0));
+		if (getEntity(entity.getUUID()) == null)
+			return;
+		entities.remove(entity);
 	}
 
-	public RenderSystem getRenderSystem()
+	public Entity getEntity(UUID uuid)
 	{
-		return renderSystem;
+		for (Entity entity : entities)
+			if (entity.getUUID().equals(uuid))
+				return entity;
+		return null;
 	}
 
-	public ControlSystem getControlSystem()
+	public Entity getFocusedEntity()
 	{
-		return controlSystem;
+		return focusedEntity;
+	}
+
+	public void setFocusedEntity(Entity focusedEntity)
+	{
+		this.focusedEntity = focusedEntity;
 	}
 
 }

@@ -4,6 +4,8 @@ import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
+import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
+
 public class PositionComponent implements Component
 {
 
@@ -16,6 +18,19 @@ public class PositionComponent implements Component
 	{
 		this.position = position;
 		this.movementVector = new Vector2f();
+	}
+
+	@Override
+	public void load()
+	{
+	}
+
+	@Override
+	public void unload()
+	{
+		position = null;
+		movementVector = null;
+		moved = false;
 	}
 
 	public void setPosition(Vector3f position)

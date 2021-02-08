@@ -4,9 +4,7 @@ import java.util.UUID;
 
 import org.joml.Vector2f;
 
-import me.dylanmullen.agar.game.collision.CircleCollision;
 import me.dylanmullen.agar.game.collision.Collision;
-import me.dylanmullen.agar.game.collision.SquareCollision;
 
 public class CollisionComponent implements Component
 {
@@ -20,6 +18,20 @@ public class CollisionComponent implements Component
 		this.entityUUID = entityUUID;
 		this.position = position;
 		this.collision = collisionArea;
+	}
+
+	@Override
+	public void load()
+	{
+
+	}
+
+	@Override
+	public void unload()
+	{
+		this.entityUUID = null;
+		this.position = null;
+		this.collision = null;
 	}
 
 	public Collision getCollision()
@@ -36,7 +48,7 @@ public class CollisionComponent implements Component
 	{
 		getCollision().updatePositions(movementVector);
 	}
-	
+
 	public UUID getEntityUUID()
 	{
 		return entityUUID;

@@ -2,16 +2,11 @@ package me.dylanmullen.agar.core;
 
 import java.awt.Dimension;
 
-import org.joml.Matrix4f;
-import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 
-import me.dylanmullen.agar.game.ecs.EntityHandler;
-import me.dylanmullen.agar.game.map.Chunk;
-import me.dylanmullen.agar.graphics.opengl.Camera;
-import me.dylanmullen.agar.graphics.opengl.Shader;
+import me.dylanmullen.agar.game.GameController;
 import me.dylanmullen.agar.window.Window;
 
 public class GameLoop implements Runnable
@@ -20,12 +15,7 @@ public class GameLoop implements Runnable
 	private AgarioClone app;
 	private boolean running;
 
-	private Camera camera;
-	private Matrix4f projection;
-
-	private Shader shader ;
-
-	private EntityHandler entityHandler;
+	private GameController gameController;
 
 	public GameLoop(AgarioClone app)
 	{
@@ -36,15 +26,12 @@ public class GameLoop implements Runnable
 	@Override
 	public void run()
 	{
-		initGLFW();
+		init();
 
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
-
-		this.entityHandler = new EntityHandler(app.getWindow().getInputController());
-		entityHandler.createPlayer();
 
 		while (!GLFW.glfwWindowShouldClose(app.getWindow().getWindowReference()))
 		{
@@ -62,7 +49,7 @@ public class GameLoop implements Runnable
 		}
 	}
 
-	private void initGLFW()
+	private void init()
 	{
 		app.setWindow(new Window("Agario Clone", new Dimension(1280, 720)));
 		app.getWindow().createWindow();
@@ -70,12 +57,14 @@ public class GameLoop implements Runnable
 		GL.createCapabilities();
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glClearColor(0, 0, 0, 1f);
+
+		this.gameController = new GameController(app.getWindow().getInputController());
 	}
 
 	public void update()
 	{
 		GLFW.glfwPollEvents();
-		entityHandler.update();
+		gameController.update();
 	}
 
 	public void render()
@@ -86,7 +75,7 @@ public class GameLoop implements Runnable
 		else
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 
-		entityHandler.getRenderSystem().handle();
+		gameController.render();
 
 		GLFW.glfwSwapBuffers(app.getWindow().getWindowReference());
 

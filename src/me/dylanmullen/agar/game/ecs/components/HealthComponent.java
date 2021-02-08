@@ -1,5 +1,7 @@
 package me.dylanmullen.agar.game.ecs.components;
 
+import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
+
 public class HealthComponent implements Component
 {
 
@@ -8,6 +10,17 @@ public class HealthComponent implements Component
 	public HealthComponent(double baseHealth)
 	{
 		this.health = baseHealth;
+	}
+
+	@Override
+	public void load()
+	{
+	}
+
+	@Override
+	public void unload()
+	{
+		health = 0;
 	}
 
 	public void incrementHealth(double toIncrease)
