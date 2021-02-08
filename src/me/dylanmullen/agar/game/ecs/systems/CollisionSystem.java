@@ -3,6 +3,7 @@ package me.dylanmullen.agar.game.ecs.systems;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.dylanmullen.agar.game.GameController;
 import me.dylanmullen.agar.game.ecs.components.CollisionComponent;
 import me.dylanmullen.agar.game.ecs.components.Component;
 import me.dylanmullen.agar.game.events.EventHandler;
@@ -22,20 +23,19 @@ public class CollisionSystem implements ISystem
 	public void handle()
 	{
 		// TODO: REMOVE THIS O(n^2)
-		for (CollisionComponent current : components)
+		CollisionComponent current = (CollisionComponent) GameController.getInstance().getEntityHandler()
+				.getFocusedEntity().getComponent(CollisionComponent.class);
+		for (CollisionComponent target : components)
 		{
-			for (CollisionComponent target : components)
-			{
-				if (current.equals(target))
-					continue;
+			if (current.equals(target))
+				continue;
 
-				if (current.getPosition().hasMoved())
-					current.updatePosition(current.getPosition().getMovementVector());
-				if (current.getCollision().collide(target.getCollision()))
-				{
-					EventHandler.getInstance()
-							.fireEvent(new CollisionEvent(current.getEntityUUID(), target.getEntityUUID()));
-				}
+			if (current.getPosition().hasMoved())
+				current.updatePosition(current.getPosition().getMovementVector());
+			if (current.getCollision().collide(target.getCollision()))
+			{
+				EventHandler.getInstance()
+						.fireEvent(new CollisionEvent(current.getEntityUUID(), target.getEntityUUID()));
 			}
 		}
 	}

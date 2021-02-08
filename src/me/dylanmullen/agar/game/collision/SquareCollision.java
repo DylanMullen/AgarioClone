@@ -41,9 +41,11 @@ public class SquareCollision implements Collision
 
 	public boolean isColliding(SquareCollision boundingSquare)
 	{
-		if (getTopLeft().x >= boundingSquare.getBottomRight().x && getBottomRight().x >= boundingSquare.getTopLeft().x)
-			System.out.println("test");
-		return getTopLeft().x <= boundingSquare.getTopLeft().x;
+		boolean x = ((getTopLeft().x <= boundingSquare.getBottomRight().x)
+				&& (getBottomRight().x >= boundingSquare.getTopLeft().x));
+		boolean y = ((getTopLeft().y <= boundingSquare.getBottomRight().y)
+				&& getBottomRight().y >= boundingSquare.getTopLeft().y);
+		return x && y;
 	}
 
 	public boolean isColliding(CircleCollision circle)

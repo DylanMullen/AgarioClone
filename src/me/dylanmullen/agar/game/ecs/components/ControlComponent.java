@@ -42,6 +42,7 @@ public class ControlComponent implements Component
 			movementVector.add(0f, 0f, 0.5f);
 		if (keyboard.isPressed(GLFW.GLFW_KEY_D))
 			movementVector.add(0.5f, 0f, 0f);
+		
 		move(movementVector);
 	}
 
