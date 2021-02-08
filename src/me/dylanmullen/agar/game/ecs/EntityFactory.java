@@ -30,7 +30,7 @@ public class EntityFactory
 
 		entity.addComponent(new RenderComponent(shader, new Model(VAOFactory.createSquare(), 2f), positionComponent));
 		entity.addComponent(
-				new CollisionComponent(positionComponent, new SquareCollision(new Vector2f(0, 1), new Vector2f(1, 0))));
+				new CollisionComponent(entity.getUUID(), positionComponent, new SquareCollision(new Vector2f(0, 1), new Vector2f(1, 0))));
 		entity.addComponent(new ControlComponent(positionComponent));
 		entity.addComponent(new HealthComponent(30));
 		return entity;

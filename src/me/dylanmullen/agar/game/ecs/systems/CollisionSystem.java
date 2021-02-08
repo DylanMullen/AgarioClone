@@ -10,6 +10,8 @@ import me.dylanmullen.agar.game.collision.SquareCollision;
 import me.dylanmullen.agar.game.ecs.components.CollisionComponent;
 import me.dylanmullen.agar.game.ecs.components.Component;
 import me.dylanmullen.agar.game.ecs.components.PositionComponent;
+import me.dylanmullen.agar.game.events.EventHandler;
+import me.dylanmullen.agar.game.events.events.CollisionEvent;
 
 public class CollisionSystem implements ISystem
 {
@@ -20,7 +22,7 @@ public class CollisionSystem implements ISystem
 	{
 		this.components = new ArrayList<CollisionComponent>();
 
-		CollisionComponent component = new CollisionComponent(new PositionComponent(new Vector3f(0, 0, 0)),
+		CollisionComponent component = new CollisionComponent(null, new PositionComponent(new Vector3f(0, 0, 0)),
 				new SquareCollision(new Vector2f(-1, 1), new Vector2f(1, -1)));
 		registerComponent(component);
 	}
@@ -37,8 +39,9 @@ public class CollisionSystem implements ISystem
 					continue;
 				if (current.getPosition().hasMoved())
 					current.updatePosition(current.getPosition().getMovementVector());
-//				if (target.getCollision().collide(current.getCollision()))
-					
+				if (current.getCollision().collide(target.getCollision()))
+					EventHandler.getInstance()
+							.fireEvent(new CollisionEvent(current.getEntityUUID(), target.getEntityUUID()));
 			}
 		}
 	}
