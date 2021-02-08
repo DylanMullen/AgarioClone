@@ -41,7 +41,7 @@ public class PositionComponent implements Component
 	public void changePosition(Vector3f moveVector)
 	{
 		this.position = this.position.add(moveVector);
-		this.movementVector = new Vector2f(moveVector.x, moveVector.z);
+		this.movementVector = movementVector.set(moveVector.x, moveVector.z);
 		this.moved = true;
 	}
 

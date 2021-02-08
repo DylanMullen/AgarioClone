@@ -19,12 +19,12 @@ public class FoodGenerator
 
 	public void generateFood()
 	{
-		if (currentFood > 5)
+		if (currentFood >= 1)
 			return;
-		
+
 		Random random = new Random();
-		float x = -10 + random.nextFloat() * (10 - -10);
-		float y = -10 + random.nextFloat() * (10 - -10);
+		float x = 10; // -10 + random.nextFloat() * (10 - -10);
+		float y = 10;
 		EntityFactory.createFoodEntity(new Vector3f(x, 1f, y));
 		currentFood++;
 	}

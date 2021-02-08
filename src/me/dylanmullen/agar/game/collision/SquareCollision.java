@@ -41,8 +41,9 @@ public class SquareCollision implements Collision
 
 	public boolean isColliding(SquareCollision boundingSquare)
 	{
-		return (boundingSquare.bottomRight.x >= topLeft.x && boundingSquare.topLeft.x <= bottomRight.x)
-				&& (boundingSquare.bottomRight.y <= topLeft.y && boundingSquare.topLeft.y >= bottomRight.y);
+		if (getTopLeft().x >= boundingSquare.getBottomRight().x && getBottomRight().x >= boundingSquare.getTopLeft().x)
+			System.out.println("test");
+		return getTopLeft().x <= boundingSquare.getTopLeft().x;
 	}
 
 	public boolean isColliding(CircleCollision circle)
@@ -56,11 +57,8 @@ public class SquareCollision implements Collision
 
 	public void updatePositions(Vector2f movementVector)
 	{
-		this.topLeft = this.topLeft.add(movementVector);
-		this.bottomRight = this.bottomRight.add(movementVector);
-		System.out.println(topLeft.x + ":" + topLeft.y);
-		System.out.println(bottomRight.x + ":" + bottomRight.y);
-		System.out.println();
+		this.topLeft.set(topLeft.x + movementVector.x, topLeft.y + movementVector.y);
+		this.bottomRight.set(bottomRight.x + movementVector.x, bottomRight.y + movementVector.y);
 	}
 
 	public boolean isSolid()

@@ -6,7 +6,6 @@ import org.joml.Vector2f;
 
 import me.dylanmullen.agar.game.GameController;
 import me.dylanmullen.agar.game.collision.Collision;
-import me.dylanmullen.agar.game.ecs.systems.CollisionSystem;
 
 public class CollisionComponent implements Component
 {
