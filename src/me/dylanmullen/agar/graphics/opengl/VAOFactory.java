@@ -19,10 +19,20 @@ public class VAOFactory
 		{
 				0, 1, 2, 2, 1, 3
 		};
+
+		float[] textureCoords =
+		{
+				0, 1, //
+				1, 1, //
+				0, 0, //
+				1, 0
+		};
+
 		VAO vao = new VAO();
 		vao.bind();
 		vao.storeVertices(BufferUtil.toFloatBuffer(verts), verts.length / 3);
 		vao.storeIndicesBuffer(indices);
+		vao.storeTextureCoords(BufferUtil.toFloatBuffer(textureCoords));
 		vao.unbind();
 		return vao;
 	}

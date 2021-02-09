@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.nio.IntBuffer;
 
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
@@ -31,6 +32,7 @@ public class Window
 
 	private void setup()
 	{
+		GLFWErrorCallback.createPrint(System.err).set();
 		if (!GLFW.glfwInit())
 			return; // TODO throw error
 

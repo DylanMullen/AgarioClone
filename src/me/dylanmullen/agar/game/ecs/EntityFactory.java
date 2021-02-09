@@ -28,7 +28,7 @@ public class EntityFactory
 		entity.addComponent(positionComponent);
 
 		Shader shader = new Shader("circle.vert", "circle.frag");
-
+		
 		entity.addComponent(new RenderComponent(shader, new Model(VAOFactory.createSquare(), 2f), positionComponent));
 		entity.addComponent(
 				new CollisionComponent(entity.getUUID(), positionComponent, getSquareCollision(position, 2f)));

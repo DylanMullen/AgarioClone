@@ -47,20 +47,25 @@ public class VAO
 		glBindVertexArray(0);
 	}
 
-	public void storeData(int attrib, FloatBuffer buffer)
+	public void storeData(int attrib, int size, FloatBuffer buffer)
 	{
 		int vboID = glGenBuffers();
 		glBindBuffer(GL_ARRAY_BUFFER, vboID);
 		glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
-		GL20.glVertexAttribPointer(attrib, 3, GL11.GL_FLOAT, false, 0, 0);
+		GL20.glVertexAttribPointer(attrib, size, GL11.GL_FLOAT, false, 0, 0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		vbos.add(vboID);
 	}
 
 	public void storeVertices(FloatBuffer buffer, int count)
 	{
-		storeData(0, buffer);
+		storeData(0, 3, buffer);
 		this.count = count;
+	}
+
+	public void storeTextureCoords(FloatBuffer buffer)
+	{
+		storeData(1, 2, buffer);
 	}
 
 	public void storeIndicesBuffer(int[] indices)

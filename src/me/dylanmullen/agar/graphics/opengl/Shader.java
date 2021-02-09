@@ -76,6 +76,7 @@ public class Shader
 
 		GL20.glDeleteShader(vertID);
 		GL20.glDeleteShader(fragID);
+		
 	}
 
 	public void start()
@@ -101,6 +102,11 @@ public class Shader
 	public void setVector3f(String uniform, Vector3f vec)
 	{
 		GL20.glUniform3f(getUniformVariable(uniform), vec.x, vec.y, vec.z);
+	}
+
+	public void setFloat(String uniform, float x)
+	{
+		GL20.glUniform1f(getUniformVariable(uniform), x);
 	}
 
 	public void setProjectionMatrix(Matrix4f proj)
