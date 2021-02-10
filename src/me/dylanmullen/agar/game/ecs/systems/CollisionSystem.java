@@ -33,11 +33,8 @@ public class CollisionSystem implements ISystem
 		{
 			if (current.equals(target))
 				continue;
-
-			
 			if (current.getCollision().collide(target.getCollision()))
 			{
-				System.out.println("fired");
 				EventHandler.getInstance()
 				.fireEvent(new CollisionEvent(current.getEntityUUID(), target.getEntityUUID()));
 			}

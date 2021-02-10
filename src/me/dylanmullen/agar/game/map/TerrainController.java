@@ -13,7 +13,7 @@ public class TerrainController
 
 	public TerrainController()
 	{
-		this.terrain = new Terrain(128, 16);
+		this.terrain = new Terrain(64, 16);
 		this.foodGenerator = new FoodGenerator(terrain);
 	}
 

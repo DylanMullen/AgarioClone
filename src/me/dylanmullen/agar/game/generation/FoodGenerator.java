@@ -1,7 +1,7 @@
 package me.dylanmullen.agar.game.generation;
 
-import org.joml.Random;
-import org.joml.Vector2f;
+import java.util.Random;
+
 import org.joml.Vector3f;
 
 import me.dylanmullen.agar.game.GameController;
@@ -12,26 +12,36 @@ import me.dylanmullen.agar.game.map.Terrain;
 public class FoodGenerator
 {
 
-//	private Terrain terrain;
+	private Terrain terrain;
 
+	private Random random;
 	private int currentFood;
 
 	public FoodGenerator(Terrain terrain)
 	{
+		this.terrain = terrain;
+		this.random = new Random();
 	}
-	
-	private void test(Vector2f pos)
+
+	private void spawnFood()
 	{
-		Entity entity = EntityFactory.createFoodEntity(new Vector3f(pos.x, 1f, pos.y));
+		float x = -(terrain.getTerrainWidth() / 2)
+				+ random.nextFloat() * ((terrain.getTerrainWidth() / 2) - -(terrain.getTerrainWidth() / 2));
+		float y = -(terrain.getTerrainWidth() / 2)
+				+ random.nextFloat() * ((terrain.getTerrainWidth() / 2) - -(terrain.getTerrainWidth() / 2));
+		System.out.println("spawned: " + x);
+
+		Entity entity = EntityFactory.createFoodEntity(new Vector3f(x, 1f, y));
 		GameController.getInstance().getEntityHandler().addEntity(entity);
 		currentFood++;
 	}
 
 	public void generateFood()
 	{
-		if (currentFood >= 2)
+		if (currentFood >= 100)
 			return;
-		test(new Vector2f(10,0));
+
+		spawnFood();
 	}
 
 }

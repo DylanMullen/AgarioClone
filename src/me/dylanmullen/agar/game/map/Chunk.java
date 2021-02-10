@@ -10,7 +10,6 @@ import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
 import me.dylanmullen.agar.graphics.opengl.Model;
 import me.dylanmullen.agar.graphics.opengl.VAO;
 import me.dylanmullen.agar.graphics.opengl.VAOFactory;
-import me.dylanmullen.agar.util.BufferUtil;
 
 public class Chunk
 {
@@ -19,15 +18,17 @@ public class Chunk
 	private Vector3f colour;
 	private VAO chunkVAO;
 	private float scale;
+	private boolean inside;
 
 	private RenderComponent renderingComponent;
 
-	public Chunk(Vector3f chunkPosition, float scale)
+	public Chunk(Vector3f chunkPosition, float scale, boolean inside)
 	{
 		this.chunkPosition = chunkPosition;
 		this.colour = new Vector3f((float) Math.random(), (float) Math.random(), (float) Math.random());
 		this.chunkVAO = VAOFactory.createSquare();
 		this.scale = scale;
+		this.inside = inside;
 		init();
 	}
 
@@ -36,6 +37,8 @@ public class Chunk
 		this.renderingComponent = new RenderComponent(RenderSystem.shader, new Model(chunkVAO, scale),
 				new PositionComponent(chunkPosition));
 
+		renderingComponent.addProperty("chunkColour", new Vector3f(0.5f, 1, 0.5f));
+		renderingComponent.addProperty("outOfBounds", inside);
 		RenderSystem.getRenderComponents().add(renderingComponent);
 	}
 

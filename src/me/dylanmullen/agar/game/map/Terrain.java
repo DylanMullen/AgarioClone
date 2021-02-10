@@ -28,7 +28,7 @@ public class Terrain
 		if (chunk != null)
 			return chunk;
 
-		chunk = new Chunk(chunkPosition, chunkWidth);
+		chunk = new Chunk(chunkPosition, chunkWidth, false);
 		chunks.add(chunk);
 		return chunk;
 	}
@@ -111,6 +111,11 @@ public class Terrain
 	private boolean intersects(Vector3f high, Vector3f low, Vector3f position)
 	{
 		return (position.x >= high.x && position.x <= low.x) && (position.z >= high.z && position.z <= low.z);
+	}
+	
+	public float getTerrainWidth()
+	{
+		return terrainWidth;
 	}
 
 }

@@ -1,5 +1,8 @@
 package me.dylanmullen.agar.game.ecs.components;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.joml.Matrix4f;
 
 import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
@@ -13,11 +16,14 @@ public class RenderComponent implements Component
 	private Model model;
 	private PositionComponent positionComponent;
 
+	private Map<String, Object> customProperties;
+
 	public RenderComponent(Shader shader, Model model, PositionComponent positionComponent)
 	{
 		this.shader = shader;
 		this.model = model;
 		this.positionComponent = positionComponent;
+		this.customProperties = new HashMap<String, Object>();
 	}
 
 	@Override
@@ -25,12 +31,23 @@ public class RenderComponent implements Component
 	{
 		RenderSystem.getRenderComponents().add(this);
 	}
-	
+
 	@Override
 	public void unload()
 	{
 		RenderSystem.getRenderComponents().remove(this);
 		model.getModelData().delete();
+	}
+
+	public void setCustomProperties()
+	{
+		for (String location : customProperties.keySet())
+			shader.setUniform(location, customProperties.get(location));
+	}
+
+	public void addProperty(String location, Object object)
+	{
+		customProperties.put(location, object);
 	}
 
 	public Matrix4f getModelMatrix()

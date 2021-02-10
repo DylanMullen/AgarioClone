@@ -76,7 +76,7 @@ public class Shader
 
 		GL20.glDeleteShader(vertID);
 		GL20.glDeleteShader(fragID);
-		
+
 	}
 
 	public void start()
@@ -94,6 +94,16 @@ public class Shader
 		GL20.glBindAttribLocation(shaderID, location, variable);
 	}
 
+	public void setUniform(String location, Object object)
+	{
+		if (object instanceof Float)
+			setFloat(location, (float) object);
+		else if (object instanceof Boolean)
+			setBoolean(location, (boolean) object);
+		else if (object instanceof Vector3f)
+			setVector3f(location, (Vector3f) object);
+	}
+
 	public int getUniformVariable(String name)
 	{
 		return GL20.glGetUniformLocation(shaderID, name);
@@ -102,6 +112,11 @@ public class Shader
 	public void setVector3f(String uniform, Vector3f vec)
 	{
 		GL20.glUniform3f(getUniformVariable(uniform), vec.x, vec.y, vec.z);
+	}
+
+	public void setBoolean(String uniform, boolean value)
+	{
+		GL20.glUniform1f(getUniformVariable(uniform), (value ? 1f : 0f));
 	}
 
 	public void setFloat(String uniform, float x)

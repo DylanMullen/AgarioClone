@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
@@ -54,6 +53,7 @@ public class RenderSystem implements ISystem
 			componentShader.setProjectionMatrix(projection);
 			componentShader.setTransformationMatrix(component.getModelMatrix());
 			componentShader.setViewMatrix(camera.getViewMatrix());
+			component.setCustomProperties();
 			drawVAO(component.getModel().getModelData());
 			componentShader.stop();
 		}
@@ -84,9 +84,8 @@ public class RenderSystem implements ISystem
 			return;
 		renderComponents.remove((RenderComponent) component);
 	}
-	
-	
-	//TODO: REMOVE THIS. Debug only.
+
+	// TODO: REMOVE THIS. Debug only.
 	@Deprecated
 	public static List<RenderComponent> getRenderComponents()
 	{

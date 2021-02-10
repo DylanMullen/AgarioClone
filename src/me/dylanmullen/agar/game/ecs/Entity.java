@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import me.dylanmullen.agar.game.GameController;
 import me.dylanmullen.agar.game.ecs.components.Component;
 
 public class Entity
@@ -16,6 +17,14 @@ public class Entity
 	{
 		this.uuid = UUID.randomUUID();
 		this.components = new ArrayList<Component>();
+	}
+
+	public void kill()
+	{
+		for (Component component : components)
+			component.unload();
+		
+		GameController.getInstance().getEntityHandler().removeEntity(this);
 	}
 
 	public void addComponent(Component component)

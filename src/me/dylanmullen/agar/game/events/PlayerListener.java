@@ -21,24 +21,23 @@ public class PlayerListener implements Listener
 	@EventListener
 	public void onCollision(CollisionEvent event)
 	{
-//		if (event.getOwner() == null)
-//			return;
-//		if (event.getInterceptor() == null)
-//			return;
-//
-//		Entity interceptor = GameController.getInstance().getEntityHandler().getEntity(event.getInterceptor());
-//		if (interceptor == null)
-//			return;
-//		
-//		if (interceptor.hasComponent(HealthComponent.class))
-//		{
-//			HealthComponent playerHealth = (HealthComponent) player.getComponent(HealthComponent.class);
-//			HealthComponent interceptorHealth = (HealthComponent) interceptor.getComponent(HealthComponent.class);
-//			playerHealth.incrementHealth(interceptorHealth.getHealth());
-//			RenderComponent render = (RenderComponent) player.getComponent(RenderComponent.class);
-//			render.getModel().setScale(10f);
-//			System.out.println("heres");
-//		}
+		if (event.getOwner() == null)
+			return;
+		if (event.getInterceptor() == null)
+			return;
+
+		Entity interceptor = GameController.getInstance().getEntityHandler().getEntity(event.getInterceptor());
+		if (interceptor == null)
+			return;
+		
+		if (interceptor.hasComponent(HealthComponent.class))
+		{
+			HealthComponent playerHealth = (HealthComponent) player.getComponent(HealthComponent.class);
+			HealthComponent interceptorHealth = (HealthComponent) interceptor.getComponent(HealthComponent.class);
+			playerHealth.incrementHealth(interceptorHealth.getHealth());
+			RenderComponent render = (RenderComponent) player.getComponent(RenderComponent.class);
+			render.getModel().setScale(10f);
+		}
 	}
 
 }
