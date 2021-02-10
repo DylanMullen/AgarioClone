@@ -1,4 +1,4 @@
-package me.dylanmullen.agar.game.events;
+package me.dylanmullen.agar.game.events.api;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -4,7 +4,9 @@ import me.dylanmullen.agar.game.GameController;
 import me.dylanmullen.agar.game.ecs.Entity;
 import me.dylanmullen.agar.game.ecs.components.HealthComponent;
 import me.dylanmullen.agar.game.ecs.components.RenderComponent;
-import me.dylanmullen.agar.game.events.events.CollisionEvent;
+import me.dylanmullen.agar.game.events.api.EventListener;
+import me.dylanmullen.agar.game.events.api.Listener;
+import me.dylanmullen.agar.game.events.api.event.CollisionEvent;
 
 public class PlayerListener implements Listener
 {
@@ -19,27 +21,24 @@ public class PlayerListener implements Listener
 	@EventListener
 	public void onCollision(CollisionEvent event)
 	{
-		if (event.getOwner() == null)
-			return;
-
-		if (event.getInterceptor() == null)
-			return;
-
-		Entity interceptor = GameController.getInstance().getEntityHandler().getEntity(event.getInterceptor());
-		if (interceptor == null)
-		{
-			System.out.println("Null");
-			return;
-		}
-		if (interceptor.hasComponent(HealthComponent.class))
-		{
-			HealthComponent playerHealth = (HealthComponent) player.getComponent(HealthComponent.class);
-			HealthComponent interceptorHealth = (HealthComponent) interceptor.getComponent(HealthComponent.class);
-			playerHealth.incrementHealth(interceptorHealth.getHealth());
-			RenderComponent render = (RenderComponent) player.getComponent(RenderComponent.class);
-			render.getModel().setScale(10f);
-			System.out.println(playerHealth.getHealth());
-		}
+//		if (event.getOwner() == null)
+//			return;
+//		if (event.getInterceptor() == null)
+//			return;
+//
+//		Entity interceptor = GameController.getInstance().getEntityHandler().getEntity(event.getInterceptor());
+//		if (interceptor == null)
+//			return;
+//		
+//		if (interceptor.hasComponent(HealthComponent.class))
+//		{
+//			HealthComponent playerHealth = (HealthComponent) player.getComponent(HealthComponent.class);
+//			HealthComponent interceptorHealth = (HealthComponent) interceptor.getComponent(HealthComponent.class);
+//			playerHealth.incrementHealth(interceptorHealth.getHealth());
+//			RenderComponent render = (RenderComponent) player.getComponent(RenderComponent.class);
+//			render.getModel().setScale(10f);
+//			System.out.println("heres");
+//		}
 	}
 
 }

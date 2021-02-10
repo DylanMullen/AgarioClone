@@ -1,4 +1,4 @@
-package me.dylanmullen.agar.game.events.events;
+package me.dylanmullen.agar.game.events.api.event;
 
 import java.util.UUID;
 

@@ -23,6 +23,7 @@ public class PositionComponent implements Component
 	@Override
 	public void load()
 	{
+		moved=false;
 	}
 
 	@Override
@@ -40,8 +41,9 @@ public class PositionComponent implements Component
 
 	public void changePosition(Vector3f moveVector)
 	{
-		this.position = this.position.add(moveVector);
-		this.movementVector = movementVector.set(moveVector.x, moveVector.z);
+		this.position = this.position.add(moveVector.x, moveVector.y, moveVector.z);
+		System.out.println("position: " +position.x);
+		this.movementVector = new Vector2f(moveVector.x, moveVector.z);
 		this.moved = true;
 	}
 

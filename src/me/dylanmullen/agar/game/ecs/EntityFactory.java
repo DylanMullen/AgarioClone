@@ -28,10 +28,14 @@ public class EntityFactory
 		entity.addComponent(positionComponent);
 
 		Shader shader = new Shader("circle.vert", "circle.frag");
+
+		SquareCollision col = getSquareCollision(position, 2f);
+		
+		System.out.println(col.getTopLeft().x);
 		
 		entity.addComponent(new RenderComponent(shader, new Model(VAOFactory.createSquare(), 2f), positionComponent));
 		entity.addComponent(
-				new CollisionComponent(entity.getUUID(), positionComponent, getSquareCollision(position, 2f)));
+				new CollisionComponent(entity.getUUID(), positionComponent, col));
 		entity.addComponent(new ControlComponent(positionComponent));
 		entity.addComponent(new HealthComponent(30));
 
@@ -55,11 +59,9 @@ public class EntityFactory
 		entity.addComponent(positionComponent);
 
 		Shader shader = new Shader("circle.vert", "circle.frag");
-		entity.addComponent(new RenderComponent(shader, new Model(VAOFactory.createSquare(), 10f), positionComponent));
+		entity.addComponent(new RenderComponent(shader, new Model(VAOFactory.createSquare(), 1f), positionComponent));
 
-		SquareCollision square = getSquareCollision(position, 10f);
-
-		System.out.println(square.getBottomRight().x + ":" + square.getBottomRight().y);
+		SquareCollision square = getSquareCollision(position, 1f);
 
 		entity.addComponent(new CollisionComponent(entity.getUUID(), positionComponent, square));
 		entity.addComponent(new HealthComponent(10));

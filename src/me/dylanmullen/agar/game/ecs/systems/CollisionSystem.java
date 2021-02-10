@@ -6,8 +6,8 @@ import java.util.List;
 import me.dylanmullen.agar.game.GameController;
 import me.dylanmullen.agar.game.ecs.components.CollisionComponent;
 import me.dylanmullen.agar.game.ecs.components.Component;
-import me.dylanmullen.agar.game.events.EventHandler;
-import me.dylanmullen.agar.game.events.events.CollisionEvent;
+import me.dylanmullen.agar.game.events.api.EventHandler;
+import me.dylanmullen.agar.game.events.api.event.CollisionEvent;
 
 public class CollisionSystem implements ISystem
 {
@@ -25,16 +25,22 @@ public class CollisionSystem implements ISystem
 		// TODO: REMOVE THIS O(n^2)
 		CollisionComponent current = (CollisionComponent) GameController.getInstance().getEntityHandler()
 				.getFocusedEntity().getComponent(CollisionComponent.class);
+		if (current.getPosition().hasMoved())
+		{
+			current.updatePosition(current.getPosition().getMovementVector());
+		}
 		for (CollisionComponent target : components)
 		{
 			if (current.equals(target))
 				continue;
 
-			if (current.getPosition().hasMoved())
-				current.updatePosition(current.getPosition().getMovementVector());
+			
 			if (current.getCollision().collide(target.getCollision()))
+			{
+				System.out.println("fired");
 				EventHandler.getInstance()
-						.fireEvent(new CollisionEvent(current.getEntityUUID(), target.getEntityUUID()));
+				.fireEvent(new CollisionEvent(current.getEntityUUID(), target.getEntityUUID()));
+			}
 		}
 	}
 

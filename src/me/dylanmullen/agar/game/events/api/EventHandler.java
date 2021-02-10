@@ -1,11 +1,11 @@
-package me.dylanmullen.agar.game.events;
+package me.dylanmullen.agar.game.events.api;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.dylanmullen.agar.game.events.events.Event;
+import me.dylanmullen.agar.game.events.api.event.Event;
 
 public class EventHandler
 {

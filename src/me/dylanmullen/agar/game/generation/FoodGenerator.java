@@ -1,6 +1,7 @@
 package me.dylanmullen.agar.game.generation;
 
 import org.joml.Random;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 import me.dylanmullen.agar.game.GameController;
@@ -18,18 +19,19 @@ public class FoodGenerator
 	public FoodGenerator(Terrain terrain)
 	{
 	}
+	
+	private void test(Vector2f pos)
+	{
+		Entity entity = EntityFactory.createFoodEntity(new Vector3f(pos.x, 1f, pos.y));
+		GameController.getInstance().getEntityHandler().addEntity(entity);
+		currentFood++;
+	}
 
 	public void generateFood()
 	{
-		if (currentFood >= 1)
+		if (currentFood >= 2)
 			return;
-
-		Random random = new Random();
-		float x = 10; // -10 + random.nextFloat() * (10 - -10);
-		float y = 10;
-		Entity entity = EntityFactory.createFoodEntity(new Vector3f(x, 1f, y));
-		GameController.getInstance().getEntityHandler().addEntity(entity);
-		currentFood++;
+		test(new Vector2f(10,0));
 	}
 
 }
