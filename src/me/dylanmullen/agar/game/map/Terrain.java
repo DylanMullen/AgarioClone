@@ -28,7 +28,10 @@ public class Terrain
 		if (chunk != null)
 			return chunk;
 
-		chunk = new Chunk(chunkPosition, chunkWidth, false);
+		boolean inside = (chunkPosition.x < -(terrainWidth / 2)) || (chunkPosition.x > (terrainWidth / 2))
+				|| (chunkPosition.z < -(terrainWidth / 2)) || (chunkPosition.z > (terrainWidth / 2));
+
+		chunk = new Chunk(chunkPosition, chunkWidth, inside);
 		chunks.add(chunk);
 		return chunk;
 	}
@@ -112,7 +115,7 @@ public class Terrain
 	{
 		return (position.x >= high.x && position.x <= low.x) && (position.z >= high.z && position.z <= low.z);
 	}
-	
+
 	public float getTerrainWidth()
 	{
 		return terrainWidth;

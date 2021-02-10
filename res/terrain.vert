@@ -15,7 +15,7 @@ void main(void) {
 	
 	if(outOfBounds)
 	{
-		colour = vec3(1,1,1);
+		colour = vec3(chunkColour*0.75);
 	}
 	else
 	{
