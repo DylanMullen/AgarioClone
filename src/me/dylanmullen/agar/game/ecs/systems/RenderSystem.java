@@ -1,7 +1,9 @@
 package me.dylanmullen.agar.game.ecs.systems;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
@@ -12,27 +14,27 @@ import me.dylanmullen.agar.game.ecs.components.Component;
 import me.dylanmullen.agar.game.ecs.components.RenderComponent;
 import me.dylanmullen.agar.graphics.opengl.Camera;
 import me.dylanmullen.agar.graphics.opengl.Shader;
+import me.dylanmullen.agar.graphics.opengl.ShaderManager;
 import me.dylanmullen.agar.graphics.opengl.VAO;
 
 public class RenderSystem implements ISystem
 {
 
-	private static List<RenderComponent> renderComponents = new ArrayList<RenderComponent>();
+//	private static List<RenderComponent> renderComponents = new ArrayList<RenderComponent>();
+
+	private Map<Shader, List<RenderComponent>> renderComponents;
+
+	private ShaderManager shaders;
 
 	private Matrix4f projection;
 	private Camera camera;
 
-	public static Shader shader = new Shader("terrain.vert", "terrain.frag");
-
 	public RenderSystem(Camera camera)
 	{
 		this.camera = camera;
-
 		this.projection = createProjectionMatrix();
-
-		shader.start();
-		shader.setProjectionMatrix(projection);
-		shader.stop();
+		this.shaders = new ShaderManager();
+		this.renderComponents = new HashMap<Shader, List<RenderComponent>>();
 	}
 
 	private Matrix4f createProjectionMatrix()
@@ -45,21 +47,27 @@ public class RenderSystem implements ISystem
 	// HIGHLY UNOPTIMIZED
 	public void handle()
 	{
-		for (int i = 0; i < renderComponents.size(); i++)
+		for (Shader shader : renderComponents.keySet())
 		{
-			RenderComponent component = renderComponents.get(i);
-			Shader componentShader = component.getShader();
-			componentShader.start();
-			componentShader.setProjectionMatrix(projection);
-			componentShader.setTransformationMatrix(component.getModelMatrix());
-			componentShader.setViewMatrix(camera.getViewMatrix());
-			component.setCustomProperties();
-			drawVAO(component.getModel().getModelData());
-			componentShader.stop();
+			if (renderComponents.get(shader).size() == 0)
+				continue;
+
+			shader.start();
+			shader.setProjectionMatrix(projection);
+			shader.setViewMatrix(camera.getViewMatrix());
+
+			for (RenderComponent component : renderComponents.get(shader))
+			{
+				shader.setTransformationMatrix(component.getModelMatrix());
+				component.setCustomProperties();
+				drawVAO(component.getModel().getModelData());
+			}
+
+			shader.stop();
 		}
 	}
 
-	public void drawVAO(VAO vao)
+	private void drawVAO(VAO vao)
 	{
 		GL30.glBindVertexArray(vao.getVaoID());
 		GL20.glEnableVertexAttribArray(0);
@@ -74,7 +82,13 @@ public class RenderSystem implements ISystem
 	{
 		if (!(component instanceof RenderComponent))
 			return;
-		renderComponents.add((RenderComponent) component);
+
+		RenderComponent renderComponent = (RenderComponent) component;
+		List<RenderComponent> components = renderComponents.get(renderComponent.getShader());
+		if (components == null)
+			components = new ArrayList<RenderComponent>();
+		components.add(renderComponent);
+		renderComponents.put(renderComponent.getShader(), components);
 	}
 
 	@Override
@@ -82,14 +96,10 @@ public class RenderSystem implements ISystem
 	{
 		if (!(component instanceof RenderComponent))
 			return;
-		renderComponents.remove((RenderComponent) component);
 	}
 
-	// TODO: REMOVE THIS. Debug only.
-	@Deprecated
-	public static List<RenderComponent> getRenderComponents()
+	public ShaderManager getShaders()
 	{
-		return renderComponents;
+		return shaders;
 	}
-
 }

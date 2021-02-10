@@ -121,4 +121,9 @@ public class Terrain
 		return terrainWidth;
 	}
 
+	public float getUsableWidth()
+	{
+		return (terrainWidth / 2) + (chunkWidth / 2);
+	}
+
 }

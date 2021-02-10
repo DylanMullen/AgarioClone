@@ -51,9 +51,10 @@ public class GameController
 		this.controlSystem = new ControlSystem(input.getKeyboard());
 		this.terrainController = new TerrainController();
 
-		Entity player = EntityFactory.createPlayerEntity(new Vector3f(0, 0, 0));
+		Entity player = EntityFactory.createPlayerEntity(new Vector3f(0, 1, 0));
 		this.entityHandler.addEntity(player);
 		this.entityHandler.setFocusedEntity(player);
+		this.camera.focusEntity(player);
 
 		this.listener = new PlayerListener(player);
 		EventHandler.getInstance().registerListener(listener);

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.joml.Matrix4f;
 
+import me.dylanmullen.agar.game.GameController;
 import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
 import me.dylanmullen.agar.graphics.opengl.Model;
 import me.dylanmullen.agar.graphics.opengl.Shader;
@@ -29,13 +30,13 @@ public class RenderComponent implements Component
 	@Override
 	public void load()
 	{
-		RenderSystem.getRenderComponents().add(this);
+		GameController.getInstance().getRenderSystem().registerComponent(this);
 	}
 
 	@Override
 	public void unload()
 	{
-		RenderSystem.getRenderComponents().remove(this);
+		GameController.getInstance().getRenderSystem().deregisterComponent(this);
 		model.getModelData().delete();
 	}
 

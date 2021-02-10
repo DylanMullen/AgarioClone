@@ -3,6 +3,7 @@ package me.dylanmullen.agar.game.ecs;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
+import me.dylanmullen.agar.game.GameController;
 import me.dylanmullen.agar.game.collision.SquareCollision;
 import me.dylanmullen.agar.game.ecs.components.CollisionComponent;
 import me.dylanmullen.agar.game.ecs.components.Component;
@@ -27,11 +28,9 @@ public class EntityFactory
 		PositionComponent positionComponent = new PositionComponent(position);
 		entity.addComponent(positionComponent);
 
-		Shader shader = new Shader("circle.vert", "circle.frag");
+		Shader shader = GameController.getInstance().getRenderSystem().getShaders().createShader("playerShader", "circle.vert", "circle.frag");
 
 		SquareCollision col = getSquareCollision(position, 2f);
-		
-		System.out.println(col.getTopLeft().x);
 		
 		entity.addComponent(new RenderComponent(shader, new Model(VAOFactory.createSquare(), 2f), positionComponent));
 		entity.addComponent(
@@ -58,7 +57,7 @@ public class EntityFactory
 		PositionComponent positionComponent = new PositionComponent(position);
 		entity.addComponent(positionComponent);
 
-		Shader shader = new Shader("circle.vert", "circle.frag");
+		Shader shader = GameController.getInstance().getRenderSystem().getShaders().createShader("foodShader", "circle.vert", "circle.frag");
 		entity.addComponent(new RenderComponent(shader, new Model(VAOFactory.createSquare(), 1f), positionComponent));
 
 		SquareCollision square = getSquareCollision(position, 1f);

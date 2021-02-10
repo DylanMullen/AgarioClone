@@ -59,8 +59,6 @@ public class SquareCollision implements Collision
 
 	public void updatePositions(Vector2f movementVector)
 	{
-		System.out.println(topLeft.x);
-		System.out.println();
 		this.topLeft.set(topLeft.x + movementVector.x, topLeft.y + movementVector.y);
 		this.bottomRight.add(movementVector);
 	}

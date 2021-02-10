@@ -80,18 +80,18 @@ public class Camera
 
 	private void handleInputs()
 	{
-//		if (keyboard.isPressed(GLFW.GLFW_KEY_SPACE))
-//			move(new Vector3f(0f, 0.5f, 0f));
-//		if (keyboard.isPressed(GLFW.GLFW_KEY_LEFT_SHIFT))
-//			move(new Vector3f(0f, -0.5f, 0f));
+		Vector3f movementVector = new Vector3f();
+		
 		if (keyboard.isPressed(GLFW.GLFW_KEY_D))
-			move(new Vector3f(0.5f, 0f, 0f));
+			movementVector.add(0.5f, 0f, 0f);
 		if (keyboard.isPressed(GLFW.GLFW_KEY_A))
-			move(new Vector3f(-0.5f, 0f, 0f));
+			movementVector.add(-0.5f, 0f, 0f);
 		if (keyboard.isPressed(GLFW.GLFW_KEY_S))
-			move(new Vector3f(0f, 0f, 0.5f));
+			movementVector.add(0f, 0f, 0.5f);
 		if (keyboard.isPressed(GLFW.GLFW_KEY_W))
-			move(new Vector3f(0f, 0f, -0.5f));
+			movementVector.add(0f, 0f, -0.5f);
+		
+		move(movementVector);
 	}
 
 	public Matrix4f getViewMatrix()

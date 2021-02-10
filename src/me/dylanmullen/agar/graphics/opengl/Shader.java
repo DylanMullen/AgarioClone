@@ -15,13 +15,15 @@ import org.lwjgl.system.MemoryStack;
 public class Shader
 {
 
+	private String name;
 	private String vert;
 	private String frag;
 
 	private int shaderID;
 
-	public Shader(String vertPath, String fragPath)
+	public Shader(String name, String vertPath, String fragPath)
 	{
+		this.name = name;
 		this.vert = load(vertPath);
 		this.frag = load(fragPath);
 
@@ -149,6 +151,11 @@ public class Shader
 			FloatBuffer fb = trans.get(stack.mallocFloat(16));
 			GL20.glUniformMatrix4fv(getUniformVariable("viewMat"), false, fb);
 		}
+	}
+	
+	public String getName()
+	{
+		return name;
 	}
 
 }

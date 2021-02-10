@@ -4,10 +4,12 @@ import org.joml.Math;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
+import me.dylanmullen.agar.game.GameController;
 import me.dylanmullen.agar.game.ecs.components.PositionComponent;
 import me.dylanmullen.agar.game.ecs.components.RenderComponent;
 import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
 import me.dylanmullen.agar.graphics.opengl.Model;
+import me.dylanmullen.agar.graphics.opengl.Shader;
 import me.dylanmullen.agar.graphics.opengl.VAO;
 import me.dylanmullen.agar.graphics.opengl.VAOFactory;
 
@@ -34,18 +36,19 @@ public class Chunk
 
 	private void init()
 	{
-		this.renderingComponent = new RenderComponent(RenderSystem.shader, new Model(chunkVAO, scale),
+		Shader shader = GameController.getInstance().getRenderSystem().getShaders().createShader("terrainShader",
+				"terrain.vert", "terrain.frag");
+		this.renderingComponent = new RenderComponent(shader, new Model(chunkVAO, scale),
 				new PositionComponent(chunkPosition));
 
 		renderingComponent.addProperty("chunkColour", new Vector3f(0.5f, 1, 0.5f));
 		renderingComponent.addProperty("outOfBounds", inside);
-		RenderSystem.getRenderComponents().add(renderingComponent);
+		renderingComponent.load();
 	}
 
 	public void unload()
 	{
-		RenderSystem.getRenderComponents().remove(renderingComponent);
-		this.chunkVAO.delete();
+		renderingComponent.unload();
 	}
 
 	public Matrix4f getModelMatrix()

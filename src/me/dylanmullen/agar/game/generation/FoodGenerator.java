@@ -25,11 +25,10 @@ public class FoodGenerator
 
 	private void spawnFood()
 	{
-		float x = -(terrain.getTerrainWidth() / 2)
-				+ random.nextFloat() * ((terrain.getTerrainWidth() / 2) - -(terrain.getTerrainWidth() / 2));
-		float y = -(terrain.getTerrainWidth() / 2)
-				+ random.nextFloat() * ((terrain.getTerrainWidth() / 2) - -(terrain.getTerrainWidth() / 2));
-		System.out.println("spawned: " + x);
+		float x = -terrain.getUsableWidth()
+				+ random.nextFloat() * (terrain.getUsableWidth() - -terrain.getUsableWidth());
+		float y = -terrain.getUsableWidth()
+				+ random.nextFloat() * (terrain.getUsableWidth() - -terrain.getUsableWidth());
 
 		Entity entity = EntityFactory.createFoodEntity(new Vector3f(x, 1f, y));
 		GameController.getInstance().getEntityHandler().addEntity(entity);
