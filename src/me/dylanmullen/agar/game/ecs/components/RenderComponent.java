@@ -55,7 +55,7 @@ public class RenderComponent implements Component
 	{
 		Matrix4f matrix = new Matrix4f();
 		matrix.translate(positionComponent.getPosition());
-		matrix.scale(model.getScale(), 0, model.getScale());
+		matrix.scale(model.getScale(), model.getScale(), model.getScale());
 		return matrix;
 	}
 

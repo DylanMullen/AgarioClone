@@ -20,8 +20,6 @@ import me.dylanmullen.agar.graphics.opengl.VAO;
 public class RenderSystem implements ISystem
 {
 
-//	private static List<RenderComponent> renderComponents = new ArrayList<RenderComponent>();
-
 	private Map<Shader, List<RenderComponent>> renderComponents;
 
 	private ShaderManager shaders;
@@ -44,7 +42,6 @@ public class RenderSystem implements ISystem
 		return matrix;
 	}
 
-	// HIGHLY UNOPTIMIZED
 	public void handle()
 	{
 		for (Shader shader : renderComponents.keySet())

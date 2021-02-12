@@ -53,7 +53,7 @@ public class Camera
 			focusedEntity = null;
 			return;
 		}
-		position.set(entityPosition.getPosition().x, position.y, entityPosition.getPosition().z);
+		position.set(entityPosition.getPosition().x, entityPosition.getPosition().y, entityPosition.getPosition().z);
 	}
 
 	public void focusEntity(Entity entity)
@@ -81,16 +81,16 @@ public class Camera
 	private void handleInputs()
 	{
 		Vector3f movementVector = new Vector3f();
-		
+
 		if (keyboard.isPressed(GLFW.GLFW_KEY_D))
-			movementVector.add(0.5f, 0f, 0f);
+			movementVector.add(0.25f, 0f, 0f);
 		if (keyboard.isPressed(GLFW.GLFW_KEY_A))
 			movementVector.add(-0.5f, 0f, 0f);
 		if (keyboard.isPressed(GLFW.GLFW_KEY_S))
 			movementVector.add(0f, 0f, 0.5f);
 		if (keyboard.isPressed(GLFW.GLFW_KEY_W))
 			movementVector.add(0f, 0f, -0.5f);
-		
+
 		move(movementVector);
 	}
 
@@ -100,6 +100,7 @@ public class Camera
 		matrix.identity();
 		matrix.rotate((float) Math.toRadians(pitchYaw.y), new Vector3f(1, 0, 0));
 		matrix.rotate((float) Math.toRadians(pitchYaw.x), new Vector3f(0, 1, 0));
+//		matrix.scale(10, 1, 10);
 		matrix.translate(-position.x, -position.y, -position.z);
 		return matrix;
 	}

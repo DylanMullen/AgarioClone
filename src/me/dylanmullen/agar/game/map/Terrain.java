@@ -91,8 +91,8 @@ public class Terrain
 	public void loadSurroundingChunks(Vector3f position)
 	{
 		loadChunk(position);
-		loadSides(position);
-		loadCorners(position);
+//		loadSides(position);
+//		loadCorners(position);
 	}
 
 	private void loadSides(Vector3f chunkCoords)

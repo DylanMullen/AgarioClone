@@ -26,9 +26,9 @@ public class TerrainController
 	private void updateLoadedChunks()
 	{
 		Entity controlledEntity = GameController.getInstance().getEntityHandler().getFocusedEntity();
-		if(!checkFocusEntity(controlledEntity))
+		if (!checkFocusEntity(controlledEntity))
 			return;
-		
+
 		PositionComponent position = (PositionComponent) controlledEntity.getComponent(PositionComponent.class);
 		terrain.loadSurroundingChunks(position.getPosition());
 		terrain.unloadChunks(position.getPosition());

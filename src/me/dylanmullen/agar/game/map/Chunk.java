@@ -7,7 +7,6 @@ import org.joml.Vector3f;
 import me.dylanmullen.agar.game.GameController;
 import me.dylanmullen.agar.game.ecs.components.PositionComponent;
 import me.dylanmullen.agar.game.ecs.components.RenderComponent;
-import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
 import me.dylanmullen.agar.graphics.opengl.Model;
 import me.dylanmullen.agar.graphics.opengl.Shader;
 import me.dylanmullen.agar.graphics.opengl.VAO;

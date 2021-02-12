@@ -5,9 +5,9 @@ import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
 public class HealthComponent implements Component
 {
 
-	private double health;
+	private float health;
 
-	public HealthComponent(double baseHealth)
+	public HealthComponent(float baseHealth)
 	{
 		this.health = baseHealth;
 	}
@@ -23,12 +23,12 @@ public class HealthComponent implements Component
 		health = 0;
 	}
 
-	public void incrementHealth(double toIncrease)
+	public void incrementHealth(float toIncrease)
 	{
 		this.health += toIncrease;
 	}
 
-	public void decrementHealth(double toDecrease)
+	public void decrementHealth(float toDecrease)
 	{
 		this.health += toDecrease;
 	}
@@ -38,7 +38,7 @@ public class HealthComponent implements Component
 		this.health = 0;
 	}
 
-	public double getHealth()
+	public float getHealth()
 	{
 		return health;
 	}

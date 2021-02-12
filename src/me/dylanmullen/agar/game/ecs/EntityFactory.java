@@ -30,9 +30,9 @@ public class EntityFactory
 
 		Shader shader = GameController.getInstance().getRenderSystem().getShaders().createShader("playerShader", "circle.vert", "circle.frag");
 
-		SquareCollision col = getSquareCollision(position, 2f);
+		SquareCollision col = getSquareCollision(position, 0.3f);
 		
-		entity.addComponent(new RenderComponent(shader, new Model(VAOFactory.createSquare(), 2f), positionComponent));
+		entity.addComponent(new RenderComponent(shader, new Model(VAOFactory.createSquare(), 0.3f), positionComponent));
 		entity.addComponent(
 				new CollisionComponent(entity.getUUID(), positionComponent, col));
 		entity.addComponent(new ControlComponent(positionComponent));

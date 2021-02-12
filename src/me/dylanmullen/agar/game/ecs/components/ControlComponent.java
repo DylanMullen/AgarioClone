@@ -35,7 +35,7 @@ public class ControlComponent implements Component
 
 		Vector3f movementVector = new Vector3f();
 		if (keyboard.isPressed(GLFW.GLFW_KEY_W))
-			movementVector.add(0f, 0f, -0.5f);
+			movementVector.add(0f, 0f, -0.25f);
 		if (keyboard.isPressed(GLFW.GLFW_KEY_A))
 			movementVector.add(-0.5f, 0f, 0f);
 		if (keyboard.isPressed(GLFW.GLFW_KEY_S))

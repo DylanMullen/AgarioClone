@@ -1,5 +1,7 @@
 package me.dylanmullen.agar.core;
 
+import static org.lwjgl.glfw.GLFW.glfwSwapInterval;
+
 import java.awt.Dimension;
 
 import org.lwjgl.glfw.GLFW;
@@ -57,6 +59,9 @@ public class GameLoop implements Runnable
 		GL.createCapabilities();
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glClearColor(0, 0, 0, 1f);
+		
+        glfwSwapInterval(1);
+
 
 		this.gameController = new GameController(app.getWindow().getInputController());
 	}
