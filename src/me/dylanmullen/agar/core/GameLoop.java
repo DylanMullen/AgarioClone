@@ -78,7 +78,10 @@ public class GameLoop implements Runnable
 		else
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		gameController.render();
+		GL11.glDisable(GL11.GL_BLEND);
 
 		GLFW.glfwSwapBuffers(app.getWindow().getWindowReference());
 

@@ -45,7 +45,7 @@ public class PlayerListener implements Listener
 		event.getPlayerHealth().incrementHealth(nutrition);
 
 		((RenderComponent) event.getPlayer().getComponent(RenderComponent.class)).getModel()
-				.incrementScale(nutrition / 10f);
+				.incrementScale(nutrition / 50f);
 
 		event.getToEat().kill();
 	}

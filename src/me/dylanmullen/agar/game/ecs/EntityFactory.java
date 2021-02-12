@@ -31,9 +31,9 @@ public class EntityFactory
 		Shader shader = GameController.getInstance().getRenderSystem().getShaders().createShader("playerShader",
 				"player/player.vert", "player/player.frag");
 
-		SquareCollision col = getSquareCollision(position, 0.3f);
+		SquareCollision col = getSquareCollision(position, 1f);
 
-		RenderComponent render = new RenderComponent(shader, new Model(VAOFactory.createSquare(), 0.3f),
+		RenderComponent render = new RenderComponent(shader, new Model(VAOFactory.createSquare(), 4f),
 				positionComponent);
 		render.addProperty("playerColour", new Vector3f(1, 0, 1));
 
@@ -64,11 +64,11 @@ public class EntityFactory
 		Shader shader = GameController.getInstance().getRenderSystem().getShaders().createShader("foodShader",
 				"food/food.vert", "food/food.frag");
 		
-		RenderComponent render = new RenderComponent(shader, new Model(VAOFactory.createSquare(), 1f), positionComponent);
+		RenderComponent render = new RenderComponent(shader, new Model(VAOFactory.createSquare(), 0.6f), positionComponent);
 		render.addProperty("entityPosition",positionComponent.getPosition());
 		entity.addComponent(render);
 
-		SquareCollision square = getSquareCollision(position, 1f);
+		SquareCollision square = getSquareCollision(position, 0.75f);
 
 		entity.addComponent(new CollisionComponent(entity.getUUID(), positionComponent, square));
 		entity.addComponent(new HealthComponent(1));
