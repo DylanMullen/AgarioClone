@@ -37,10 +37,11 @@ public class CircleCollision implements Collision
 
 	public boolean isColliding(CircleCollision circle)
 	{
+		System.out.println(circle.getOrigin().x + ":" + circle.getOrigin().y);
 		float distanceToCircle = (float) Math
 				.sqrt(((origin.x - circle.getOrigin().x) * (origin.x - circle.getOrigin().x))
-						+ ((origin.x - circle.getOrigin().y) * (origin.y - circle.getOrigin().y)));
-		return distanceToCircle < (circle.getRadius() + radius);
+						+ ((origin.y - circle.getOrigin().y) * (origin.y - circle.getOrigin().y)));
+		return distanceToCircle <= (circle.getRadius() + getRadius());
 	}
 
 	public boolean isColliding(SquareCollision square)
@@ -48,7 +49,7 @@ public class CircleCollision implements Collision
 		float x = Math.max(square.getBottomRight().x, Math.min(origin.x, square.getTopLeft().x));
 		float y = Math.max(square.getBottomRight().y, Math.min(origin.y, square.getTopLeft().y));
 		float distance = (float) Math.sqrt(((x - origin.x) * (x - origin.x)) + ((y - origin.y) * (y - origin.y)));
-		return distance < radius;
+		return !(distance < radius);
 	}
 
 	@Override
