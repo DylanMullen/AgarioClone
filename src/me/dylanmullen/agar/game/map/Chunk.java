@@ -40,7 +40,7 @@ public class Chunk
 		this.renderingComponent = new RenderComponent(shader, new Model(chunkVAO, scale),
 				new PositionComponent(chunkPosition));
 
-		renderingComponent.addProperty("chunkColour", new Vector3f(0.5f, 1, 0.5f));
+		renderingComponent.addProperty("chunkColour", new Vector3f(1f, 1f, 1f));
 		renderingComponent.addProperty("insideArea", inside);
 		renderingComponent.load();
 	}
