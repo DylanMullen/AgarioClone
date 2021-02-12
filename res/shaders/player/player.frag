@@ -3,11 +3,6 @@
 in vec3 pass_colour;
 in vec2 pass_textureCoords;
 
-const float borderWidth = 0.2;
-const float width = 0.1;
-const float borderEdge = 0.05;
-const float edge = 0.05;
-
 void main(void) {
 	vec2 pixelPos = pass_textureCoords * vec2(1,1);	
 	
@@ -16,5 +11,4 @@ void main(void) {
 	float alpha = 1.0-smoothstep(0.5-delta,0.5,dist);
 	
 	gl_FragColor = vec4(pass_colour, alpha);
-		
 }
