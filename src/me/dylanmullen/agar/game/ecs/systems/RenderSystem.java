@@ -93,6 +93,11 @@ public class RenderSystem implements ISystem
 	{
 		if (!(component instanceof RenderComponent))
 			return;
+
+		List<RenderComponent> components = renderComponents.get(((RenderComponent) component).getShader());
+		if (components == null)
+			return;
+		components.remove((RenderComponent) component);
 	}
 
 	public ShaderManager getShaders()

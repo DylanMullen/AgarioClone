@@ -59,10 +59,8 @@ public class GameLoop implements Runnable
 		GL.createCapabilities();
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glClearColor(0, 0, 0, 1f);
+		glfwSwapInterval(1);
 		
-        glfwSwapInterval(1);
-
-
 		this.gameController = new GameController(app.getWindow().getInputController());
 	}
 

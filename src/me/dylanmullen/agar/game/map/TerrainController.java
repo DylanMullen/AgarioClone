@@ -31,7 +31,7 @@ public class TerrainController
 
 		PositionComponent position = (PositionComponent) controlledEntity.getComponent(PositionComponent.class);
 		terrain.loadSurroundingChunks(position.getPosition());
-		terrain.unloadChunks(position.getPosition());
+//		terrain.unloadChunks(position.getPosition());
 	}
 
 	private boolean checkFocusEntity(Entity entity)

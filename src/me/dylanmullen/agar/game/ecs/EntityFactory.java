@@ -28,13 +28,17 @@ public class EntityFactory
 		PositionComponent positionComponent = new PositionComponent(position);
 		entity.addComponent(positionComponent);
 
-		Shader shader = GameController.getInstance().getRenderSystem().getShaders().createShader("playerShader", "circle.vert", "circle.frag");
+		Shader shader = GameController.getInstance().getRenderSystem().getShaders().createShader("playerShader",
+				"player/player.vert", "player/player.frag");
 
 		SquareCollision col = getSquareCollision(position, 0.3f);
-		
-		entity.addComponent(new RenderComponent(shader, new Model(VAOFactory.createSquare(), 0.3f), positionComponent));
-		entity.addComponent(
-				new CollisionComponent(entity.getUUID(), positionComponent, col));
+
+		RenderComponent render = new RenderComponent(shader, new Model(VAOFactory.createSquare(), 0.3f),
+				positionComponent);
+		render.addProperty("playerColour", new Vector3f(1, 0, 1));
+
+		entity.addComponent(render);
+		entity.addComponent(new CollisionComponent(entity.getUUID(), positionComponent, col));
 		entity.addComponent(new ControlComponent(positionComponent));
 		entity.addComponent(new HealthComponent(30));
 
@@ -57,13 +61,17 @@ public class EntityFactory
 		PositionComponent positionComponent = new PositionComponent(position);
 		entity.addComponent(positionComponent);
 
-		Shader shader = GameController.getInstance().getRenderSystem().getShaders().createShader("foodShader", "circle.vert", "circle.frag");
-		entity.addComponent(new RenderComponent(shader, new Model(VAOFactory.createSquare(), 1f), positionComponent));
+		Shader shader = GameController.getInstance().getRenderSystem().getShaders().createShader("foodShader",
+				"food/food.vert", "food/food.frag");
+		
+		RenderComponent render = new RenderComponent(shader, new Model(VAOFactory.createSquare(), 1f), positionComponent);
+		render.addProperty("entityPosition",positionComponent.getPosition());
+		entity.addComponent(render);
 
 		SquareCollision square = getSquareCollision(position, 1f);
 
 		entity.addComponent(new CollisionComponent(entity.getUUID(), positionComponent, square));
-		entity.addComponent(new HealthComponent(10));
+		entity.addComponent(new HealthComponent(1));
 
 		for (Component component : entity.getComponents())
 			component.load();

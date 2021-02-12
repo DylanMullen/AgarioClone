@@ -41,8 +41,18 @@ public class PlayerListener implements Listener
 	@EventListener
 	public void onPlayerEat(PlayerEatEvent event)
 	{
-		float nutrition = event.getEatableHealth().getHealth() * 0.4f;
+		float nutrition = clamp(event.getEatableHealth().getHealth() * 0.4f, 1f);
 		event.getPlayerHealth().incrementHealth(nutrition);
+
+		((RenderComponent) event.getPlayer().getComponent(RenderComponent.class)).getModel()
+				.incrementScale(nutrition / 10f);
+
+		event.getToEat().kill();
+	}
+
+	private float clamp(float value, float minimum)
+	{
+		return (value > minimum ? value : minimum);
 	}
 
 }

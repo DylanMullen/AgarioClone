@@ -37,7 +37,7 @@ public class Shader
 		try
 		{
 			reader = new BufferedReader(
-					new FileReader(new File(getClass().getClassLoader().getResource(path).toURI())));
+					new FileReader(new File(getClass().getClassLoader().getResource("shaders/" + path).toURI())));
 			String len = "";
 			while ((len = reader.readLine()) != null)
 			{
@@ -152,7 +152,7 @@ public class Shader
 			GL20.glUniformMatrix4fv(getUniformVariable("viewMat"), false, fb);
 		}
 	}
-	
+
 	public String getName()
 	{
 		return name;

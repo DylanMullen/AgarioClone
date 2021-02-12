@@ -63,7 +63,6 @@ public class Window
 	{
 		setup();
 		GLFW.glfwMakeContextCurrent(this.windowReference);
-		glfwSwapInterval(1);
 		glfwShowWindow(this.windowReference);
 	}
 	

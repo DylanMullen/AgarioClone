@@ -21,7 +21,12 @@ public class Model
 	{
 		return scale;
 	}
-	
+
+	public void incrementScale(float scale)
+	{
+		this.scale += scale;
+	}
+
 	public void setScale(float scale)
 	{
 		this.scale = scale;

@@ -6,7 +6,6 @@ import java.util.Map;
 import org.joml.Matrix4f;
 
 import me.dylanmullen.agar.game.GameController;
-import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
 import me.dylanmullen.agar.graphics.opengl.Model;
 import me.dylanmullen.agar.graphics.opengl.Shader;
 
