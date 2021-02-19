@@ -4,8 +4,6 @@ import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import me.dylanmullen.agar.game.ecs.systems.RenderSystem;
-
 public class PositionComponent implements Component
 {
 
@@ -23,7 +21,7 @@ public class PositionComponent implements Component
 	@Override
 	public void load()
 	{
-		moved=false;
+		moved = false;
 	}
 
 	@Override
@@ -37,13 +35,23 @@ public class PositionComponent implements Component
 	public void setPosition(Vector3f position)
 	{
 		this.position = position;
+		this.moved = true;
 	}
 
 	public void changePosition(Vector3f moveVector)
 	{
+		makeLegal(moveVector);
 		this.position = this.position.add(moveVector.x, moveVector.y, moveVector.z);
 		this.movementVector = new Vector2f(moveVector.x, moveVector.z);
 		this.moved = true;
+	}
+
+	private void makeLegal(Vector3f vector)
+	{
+		if (position.x + vector.x >= 8 || position.x + vector.x <= -8)
+			vector.set(0, vector.y, vector.z);
+		if (position.z + vector.z >= 8 || position.z + vector.z <= -8)
+			vector.set(vector.x, vector.y, 0);
 	}
 
 	public Matrix4f getMatrix()

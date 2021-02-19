@@ -32,14 +32,13 @@ public class KeyboardHandler
 					key = getKey(keyCode);
 				else
 					key = createKey(keyCode);
-
+				
 				switch (action)
 				{
 					case GLFW.GLFW_PRESS:
 						key.setPressed(true);
 						break;
 					case GLFW.GLFW_REPEAT:
-						key.setPressed(true);
 						key.setRepeat(true);
 						break;
 					case GLFW.GLFW_RELEASE:

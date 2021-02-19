@@ -24,7 +24,6 @@ public class Model
 
 	public void incrementScale(float scale)
 	{
-		System.out.println(scale);
 		this.scale += scale;
 	}
 

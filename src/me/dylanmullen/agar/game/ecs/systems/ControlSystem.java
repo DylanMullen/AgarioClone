@@ -6,7 +6,6 @@ import java.util.List;
 import me.dylanmullen.agar.game.ecs.components.Component;
 import me.dylanmullen.agar.game.ecs.components.ControlComponent;
 import me.dylanmullen.agar.window.input.InputController;
-import me.dylanmullen.agar.window.input.KeyboardHandler;
 
 public class ControlSystem implements ISystem
 {

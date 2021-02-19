@@ -1,7 +1,8 @@
-package me.dylanmullen.agar.game.events.api.event;
+package me.dylanmullen.agar.game.events.api.event.player;
 
 import me.dylanmullen.agar.game.ecs.Entity;
 import me.dylanmullen.agar.game.ecs.components.HealthComponent;
+import me.dylanmullen.agar.game.events.api.Event;
 
 public class PlayerEatEvent implements Event
 {

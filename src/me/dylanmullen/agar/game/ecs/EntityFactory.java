@@ -5,7 +5,6 @@ import org.joml.Vector3f;
 
 import me.dylanmullen.agar.game.GameController;
 import me.dylanmullen.agar.game.collision.CircleCollision;
-import me.dylanmullen.agar.game.collision.SquareCollision;
 import me.dylanmullen.agar.game.ecs.components.CollisionComponent;
 import me.dylanmullen.agar.game.ecs.components.Component;
 import me.dylanmullen.agar.game.ecs.components.ControlComponent;

@@ -5,8 +5,6 @@ import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
 
-import me.dylanmullen.agar.game.events.api.event.Event;
-
 public class EventListenerInfo
 {
 

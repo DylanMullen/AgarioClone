@@ -5,8 +5,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.dylanmullen.agar.game.events.api.event.Event;
-
 public class EventHandler
 {
 

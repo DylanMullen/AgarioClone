@@ -1,14 +1,18 @@
 package me.dylanmullen.agar.game.events;
 
+import org.joml.Vector3f;
+
 import me.dylanmullen.agar.game.GameController;
 import me.dylanmullen.agar.game.ecs.Entity;
 import me.dylanmullen.agar.game.ecs.components.HealthComponent;
+import me.dylanmullen.agar.game.ecs.components.PositionComponent;
 import me.dylanmullen.agar.game.ecs.components.RenderComponent;
 import me.dylanmullen.agar.game.events.api.EventHandler;
 import me.dylanmullen.agar.game.events.api.EventListener;
 import me.dylanmullen.agar.game.events.api.Listener;
-import me.dylanmullen.agar.game.events.api.event.CollisionEvent;
-import me.dylanmullen.agar.game.events.api.event.PlayerEatEvent;
+import me.dylanmullen.agar.game.events.api.event.collision.BoundsCollideEvent;
+import me.dylanmullen.agar.game.events.api.event.collision.EntityCollideEvent;
+import me.dylanmullen.agar.game.events.api.event.player.PlayerEatEvent;
 
 public class PlayerListener implements Listener
 {
@@ -21,7 +25,7 @@ public class PlayerListener implements Listener
 	}
 
 	@EventListener
-	public void onCollision(CollisionEvent event)
+	public void onCollision(EntityCollideEvent event)
 	{
 		if (event.getOwner() == null)
 			return;
@@ -33,9 +37,7 @@ public class PlayerListener implements Listener
 			return;
 
 		if (interceptor.hasComponent(HealthComponent.class))
-		{
 			EventHandler.getInstance().fireEvent(new PlayerEatEvent(player, interceptor));
-		}
 	}
 
 	@EventListener
@@ -48,6 +50,17 @@ public class PlayerListener implements Listener
 				.incrementScale(nutrition / 50f);
 
 		event.getToEat().kill();
+	}
+
+	@EventListener
+	public void onBoundsCollision(BoundsCollideEvent event)
+	{
+		System.out.println("here");
+		Entity player = GameController.getInstance().getEntityHandler().getEntity(event.getEntity());
+		if (player == null)
+			return;
+		PositionComponent position = (PositionComponent) player.getComponent(PositionComponent.class);
+		position.setPosition(new Vector3f(event.getBounds().x, 0, event.getBounds().y));
 	}
 
 	private float clamp(float value, float minimum)

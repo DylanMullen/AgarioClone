@@ -32,7 +32,7 @@ public class CircleCollision implements Collision
 	{
 		float distanceToPoint = (float) Math
 				.sqrt(((point.x - origin.x) * (point.x - origin.x)) + ((point.y - origin.y) * (point.y - origin.y)));
-		return distanceToPoint < radius;
+		return !(distanceToPoint >= radius);
 	}
 
 	public boolean isColliding(CircleCollision circle)

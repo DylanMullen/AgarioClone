@@ -101,6 +101,8 @@ public class MouseHandler
 
 	public Vector2f getDirectionFromCenter()
 	{
+		if(mousePosition.x == 0 && mousePosition.y==0)
+			return null;
 		return mousePosition.sub(0, 0).normalize();
 	}
 

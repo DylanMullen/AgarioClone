@@ -1,14 +1,16 @@
-package me.dylanmullen.agar.game.events.api.event;
+package me.dylanmullen.agar.game.events.api.event.collision;
 
 import java.util.UUID;
 
-public class CollisionEvent implements Event
+import me.dylanmullen.agar.game.events.api.Event;
+
+public class EntityCollideEvent implements Event
 {
 
 	private UUID owner;
 	private UUID interceptor;
 
-	public CollisionEvent(UUID owner, UUID interceptor)
+	public EntityCollideEvent(UUID owner, UUID interceptor)
 	{
 		this.owner = owner;
 		this.interceptor = interceptor;
