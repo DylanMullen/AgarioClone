@@ -59,6 +59,7 @@ public class EntityFactory
 		RenderComponent render = new RenderComponent(shader, new Model(VAOFactory.createSquare(), 0.6f),
 				positionComponent);
 		render.addProperty("entityPosition", positionComponent.getPosition());
+		render.setAttribTimeRotate(true);
 		entity.addComponent(render);
 
 		CircleCollision col = new CircleCollision(new Vector2f(position.x, position.z), 0.3f, true);

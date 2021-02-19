@@ -12,7 +12,7 @@ vec2 tileSquares(vec2 pixelPosition, float squares)
 
 float box(vec2 pixelPosition, vec2 size)
 {
-	size = vec2(0.5,0.5)-size*0.5;
+	size = vec2(0.5,0.5)-size*0.51;
     vec2 uv = smoothstep(size,size+vec2(1e-4),pixelPosition);
     uv *= smoothstep(size,size+vec2(1e-4),vec2(1.0)-pixelPosition);
     return uv.x*uv.y;

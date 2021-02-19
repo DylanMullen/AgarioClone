@@ -5,12 +5,14 @@ uniform mat4 projectionMatrix;
 uniform mat4 viewMat;
 uniform mat4 modelMat;
 uniform vec3 entityPosition;
+uniform float time;
 
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec2 textureCoords;
 
 out vec2 pass_textureCoords;
 out vec3 pass_colour;
+out float pass_time;
 
 float getRandomNumber(vec2 pixelPosition)
 {
@@ -25,5 +27,6 @@ vec3 getRandomColour(vec3 position)
 void main(void) {
 	pass_textureCoords = textureCoords;
 	pass_colour = getRandomColour(entityPosition);
+	pass_time = time;
 	gl_Position = projectionMatrix * viewMat * modelMat * vec4(position,1.0);
 }

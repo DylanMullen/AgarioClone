@@ -11,8 +11,5 @@ void main(void) {
 	float alpha = 1.0-smoothstep(0.5-delta,0.5,dist);
 	
 	gl_FragColor = vec4(pass_colour, alpha);
-
-	if(alpha==0)
-		discard;
 	
 }

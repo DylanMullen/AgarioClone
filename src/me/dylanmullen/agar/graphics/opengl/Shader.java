@@ -9,6 +9,7 @@ import java.nio.FloatBuffer;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.system.MemoryStack;
 
@@ -21,12 +22,14 @@ public class Shader
 
 	private int shaderID;
 
+	private boolean attribDisableDepthTest;
+
 	public Shader(String name, String vertPath, String fragPath)
 	{
 		this.name = name;
 		this.vert = load(vertPath);
 		this.frag = load(fragPath);
-
+		attribDisableDepthTest = true;
 		create();
 	}
 
@@ -84,10 +87,24 @@ public class Shader
 	public void start()
 	{
 		GL20.glUseProgram(shaderID);
+		setGlProperties();
+	}
+
+	private void setGlProperties()
+	{
+		if (attribDisableDepthTest)
+			GL11.glDisable(GL11.GL_DEPTH_TEST);
+	}
+
+	private void unsetGlProperties()
+	{
+		if (attribDisableDepthTest)
+			GL11.glEnable(GL11.GL_DEPTH_TEST);
 	}
 
 	public void stop()
 	{
+		unsetGlProperties();
 		GL20.glUseProgram(0);
 	}
 
