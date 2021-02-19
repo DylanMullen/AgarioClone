@@ -22,6 +22,6 @@ void main(void) {
 	vec2 pixelPosition = pass_textureCoords * vec2(1,1);
 	pixelPosition = tileSquares(pixelPosition,16.0);
 	float boxColour = box(pixelPosition,vec2(0.95,0.95));
-	vec3 colour = mix(pass_colour,vec3(boxColour),0.75)*0.85;
+	vec3 colour = mix(pass_colour,vec3(boxColour),0.75);
 	gl_FragColor = vec4(colour, 1.0);
 }	

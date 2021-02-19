@@ -1,10 +1,10 @@
 package me.dylanmullen.agar.game.ecs.components;
 
+import org.joml.Vector2f;
 import org.joml.Vector3f;
-import org.lwjgl.glfw.GLFW;
 
 import me.dylanmullen.agar.game.ecs.systems.ControlSystem;
-import me.dylanmullen.agar.window.input.KeyboardHandler;
+import me.dylanmullen.agar.window.input.InputController;
 
 public class ControlComponent implements Component
 {
@@ -29,19 +29,20 @@ public class ControlComponent implements Component
 		this.positionComponent = null;
 	}
 
-	public void handleInput(KeyboardHandler keyboard)
+	public void handleInput(InputController input)
 	{
 		this.positionComponent.setMoved(false);
-
-		Vector3f movementVector = new Vector3f();
-		if (keyboard.isPressed(GLFW.GLFW_KEY_W))
-			movementVector.add(0f, 0f, -0.25f);
-		if (keyboard.isPressed(GLFW.GLFW_KEY_A))
-			movementVector.add(-0.5f, 0f, 0f);
-		if (keyboard.isPressed(GLFW.GLFW_KEY_S))
-			movementVector.add(0f, 0f, 0.5f);
-		if (keyboard.isPressed(GLFW.GLFW_KEY_D))
-			movementVector.add(0.5f, 0f, 0f);
+		Vector2f direction = input.getMouse().getDirectionFromCenter();
+		Vector3f movementVector = new Vector3f(direction.x, 0, direction.y);
+//		if (keyboard.isPressed(GLFW.GLFW_KEY_W))
+//			movementVector.add(0f, 0f, -0.25f);
+//		if (keyboard.isPressed(GLFW.GLFW_KEY_A))
+//			movementVector.add(-0.5f, 0f, 0f);
+//		if (keyboard.isPressed(GLFW.GLFW_KEY_S))
+//			movementVector.add(0f, 0f, 0.5f);
+//		if (keyboard.isPressed(GLFW.GLFW_KEY_D))
+//			movementVector.add(0.5f, 0f, 0f);
+//
 
 		if (movementVector.x == 0 && movementVector.y == 0 && movementVector.z == 00)
 			return;

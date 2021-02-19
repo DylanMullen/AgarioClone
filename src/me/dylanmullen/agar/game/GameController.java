@@ -48,7 +48,7 @@ public class GameController
 		this.entityHandler = new EntityHandler(input);
 		this.renderSystem = new RenderSystem(camera);
 		this.collisionSystem = new CollisionSystem();
-		this.controlSystem = new ControlSystem(input.getKeyboard());
+		this.controlSystem = new ControlSystem(input);
 		this.terrainController = new TerrainController();
 
 		Entity player = EntityFactory.createPlayerEntity(new Vector3f(0, 1, 0));

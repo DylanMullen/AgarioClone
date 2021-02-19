@@ -1,5 +1,7 @@
 package me.dylanmullen.agar.window.input;
 
+import java.awt.Dimension;
+
 public class InputController
 {
 
@@ -8,11 +10,11 @@ public class InputController
 	private KeyboardHandler keyboard;
 	private MouseHandler mouse;
 
-	public InputController(long windowRef)
+	public InputController(Dimension dimensions, long windowRef)
 	{
 		if (instance == null)
 			instance = this;
-		init(windowRef);
+		init(dimensions, windowRef);
 	}
 
 	public static InputController getInstance()
@@ -20,17 +22,17 @@ public class InputController
 		return instance;
 	}
 
-	private void init(long window)
+	private void init(Dimension dimension, long window)
 	{
-		this.keyboard=new KeyboardHandler(window);
-		this.mouse=new MouseHandler(window);
+		this.keyboard = new KeyboardHandler(window);
+		this.mouse = new MouseHandler(dimension, window);
 	}
-	
+
 	public KeyboardHandler getKeyboard()
 	{
 		return keyboard;
 	}
-	
+
 	public MouseHandler getMouse()
 	{
 		return mouse;

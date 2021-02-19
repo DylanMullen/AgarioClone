@@ -37,7 +37,6 @@ public class CircleCollision implements Collision
 
 	public boolean isColliding(CircleCollision circle)
 	{
-		System.out.println(circle.getOrigin().x + ":" + circle.getOrigin().y);
 		float distanceToCircle = (float) Math
 				.sqrt(((origin.x - circle.getOrigin().x) * (origin.x - circle.getOrigin().x))
 						+ ((origin.y - circle.getOrigin().y) * (origin.y - circle.getOrigin().y)));

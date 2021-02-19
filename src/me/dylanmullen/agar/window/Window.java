@@ -56,7 +56,7 @@ public class Window
 					(vidmode.height() - pHeight.get(0)) / 2);
 		}
 		
-		this.input=new InputController(windowReference);
+		this.input=new InputController(dimensions, windowReference);
 	}
 
 	public void createWindow()

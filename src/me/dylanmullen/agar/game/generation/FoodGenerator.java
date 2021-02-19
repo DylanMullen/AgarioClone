@@ -30,14 +30,14 @@ public class FoodGenerator
 		float y = -terrain.getUsableWidth()
 				+ random.nextFloat() * (terrain.getUsableWidth() - -terrain.getUsableWidth());
 
-		Entity entity = EntityFactory.createFoodEntity(new Vector3f(0, 0.5f, 4));
+		Entity entity = EntityFactory.createFoodEntity(new Vector3f(x, 0.5f,y));
 		GameController.getInstance().getEntityHandler().addEntity(entity);
 		currentFood++;
 	}
 
 	public void generateFood()
 	{
-		if (currentFood >= 1)
+		if (currentFood >= 1000)
 			return;
 
 		spawnFood();

@@ -1,5 +1,6 @@
 package me.dylanmullen.agar.window.input;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +17,14 @@ public class MouseHandler
 	private List<Button> buttons;
 	private Vector2f mousePosition;
 	private Vector2f lastPosition;
+	private Dimension windowDimensions;
 
-	public MouseHandler(long windowRef)
+	public MouseHandler(Dimension windowDimensions, long windowRef)
 	{
+		this.windowDimensions = windowDimensions;
 		this.windowRef = windowRef;
 		this.mousePosition = new Vector2f();
-		this.lastPosition=new Vector2f();
+		this.lastPosition = new Vector2f();
 		this.buttons = new ArrayList<Button>();
 		init();
 	}
@@ -47,20 +50,29 @@ public class MouseHandler
 			@Override
 			public void invoke(long window, double xpos, double ypos)
 			{
-				if (mousePosition.x != xpos || mousePosition.y != ypos)
+				Vector2f glCoords = convertToOpenGLCoords(xpos, ypos);
+				if (mousePosition.x != glCoords.x || mousePosition.y != glCoords.y)
 				{
-					if(lastPosition.x!=xpos || lastPosition.y !=ypos)
-						lastPosition.set(mousePosition.x,mousePosition.x);
-					mousePosition.set(xpos, ypos);
+					if (lastPosition.x != glCoords.x || lastPosition.y != glCoords.y)
+						lastPosition.set(mousePosition.x, mousePosition.x);
+					mousePosition = mousePosition.set(glCoords.x, glCoords.y);
 				}
+
 			}
 		});
 	}
-	
+
+	public Vector2f convertToOpenGLCoords(double xPos, double yPos)
+	{
+		float oX = (float) (xPos / (windowDimensions.width / 2) - 1.0);
+		float oY = (float) (yPos / (windowDimensions.height / 2) - 1.0);
+		return new Vector2f(oX, oY);
+	}
+
 	public boolean isPressed(int code)
 	{
 		Button button = getMouseButton(code);
-		if(button ==null)
+		if (button == null)
 			return false;
 		else
 			return button.isClicked();
@@ -71,7 +83,7 @@ public class MouseHandler
 		try
 		{
 			return buttons.stream().filter(e -> e.getButtonCode() == code).findFirst().get();
-		}catch(Exception e)
+		} catch (Exception e)
 		{
 			return null;
 		}
@@ -81,13 +93,24 @@ public class MouseHandler
 	{
 		return buttons.stream().filter(e -> e.getButtonCode() == code).findFirst().isPresent();
 	}
-	
+
+	public Vector2f getLastPosition()
+	{
+		return lastPosition;
+	}
+
+	public Vector2f getDirectionFromCenter()
+	{
+		return mousePosition.sub(0, 0).normalize();
+	}
+
 	public float getXChange()
 	{
-		return lastPosition.x-mousePosition.x;
+		return lastPosition.x - mousePosition.x;
 	}
+
 	public float getYChange()
 	{
-		return lastPosition.y-mousePosition.y;
+		return lastPosition.y - mousePosition.y;
 	}
 }

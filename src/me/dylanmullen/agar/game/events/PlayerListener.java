@@ -44,8 +44,8 @@ public class PlayerListener implements Listener
 		float nutrition = clamp(event.getEatableHealth().getHealth() * 0.4f, 1f);
 		event.getPlayerHealth().incrementHealth(nutrition);
 
-//		((RenderComponent) event.getPlayer().getComponent(RenderComponent.class)).getModel()
-//				.incrementScale(nutrition / 50f);
+		((RenderComponent) event.getPlayer().getComponent(RenderComponent.class)).getModel()
+				.incrementScale(nutrition / 50f);
 
 		event.getToEat().kill();
 	}
