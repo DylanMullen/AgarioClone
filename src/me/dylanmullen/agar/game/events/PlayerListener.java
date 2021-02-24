@@ -1,18 +1,20 @@
 package me.dylanmullen.agar.game.events;
 
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 import me.dylanmullen.agar.game.GameController;
 import me.dylanmullen.agar.game.ecs.Entity;
+import me.dylanmullen.agar.game.ecs.EntityFactory;
 import me.dylanmullen.agar.game.ecs.components.HealthComponent;
 import me.dylanmullen.agar.game.ecs.components.PositionComponent;
 import me.dylanmullen.agar.game.ecs.components.RenderComponent;
 import me.dylanmullen.agar.game.events.api.EventHandler;
 import me.dylanmullen.agar.game.events.api.EventListener;
 import me.dylanmullen.agar.game.events.api.Listener;
-import me.dylanmullen.agar.game.events.api.event.collision.BoundsCollideEvent;
 import me.dylanmullen.agar.game.events.api.event.collision.EntityCollideEvent;
 import me.dylanmullen.agar.game.events.api.event.player.PlayerEatEvent;
+import me.dylanmullen.agar.game.events.api.event.player.PlayerSplitEvent;
 
 public class PlayerListener implements Listener
 {
@@ -53,14 +55,20 @@ public class PlayerListener implements Listener
 	}
 
 	@EventListener
-	public void onBoundsCollision(BoundsCollideEvent event)
+	public void onPlayerSplit(PlayerSplitEvent event)
 	{
-		System.out.println("here");
-		Entity player = GameController.getInstance().getEntityHandler().getEntity(event.getEntity());
-		if (player == null)
+		if (event.getEntity() == null)
 			return;
-		PositionComponent position = (PositionComponent) player.getComponent(PositionComponent.class);
-		position.setPosition(new Vector3f(event.getBounds().x, 0, event.getBounds().y));
+
+		PositionComponent component = (PositionComponent) event.getEntity().getComponent(PositionComponent.class);
+		Vector2f direction = event.getDirection().mul(5);
+		Vector3f acceleration = new Vector3f(component.getPosition());
+		acceleration.add(direction.x, 0, direction.y);
+
+		Entity entity = EntityFactory.createPlayerSplit(
+				new Vector3f(component.getPosition().x + 2, 0, component.getPosition().z + 2), acceleration, 10f);
+
+		GameController.getInstance().getEntityHandler().addEntity(entity);
 	}
 
 	private float clamp(float value, float minimum)

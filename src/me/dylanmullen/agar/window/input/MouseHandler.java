@@ -15,6 +15,7 @@ public class MouseHandler
 	private long windowRef;
 
 	private List<Button> buttons;
+	private Vector2f center;
 	private Vector2f mousePosition;
 	private Vector2f lastPosition;
 	private Dimension windowDimensions;
@@ -23,6 +24,7 @@ public class MouseHandler
 	{
 		this.windowDimensions = windowDimensions;
 		this.windowRef = windowRef;
+		this.center = new Vector2f(windowDimensions.width / 2, windowDimensions.height / 2);
 		this.mousePosition = new Vector2f();
 		this.lastPosition = new Vector2f();
 		this.buttons = new ArrayList<Button>();
@@ -50,13 +52,13 @@ public class MouseHandler
 			@Override
 			public void invoke(long window, double xpos, double ypos)
 			{
-				Vector2f glCoords = convertToOpenGLCoords(xpos, ypos);
-				if (mousePosition.x != glCoords.x || mousePosition.y != glCoords.y)
-				{
-					if (lastPosition.x != glCoords.x || lastPosition.y != glCoords.y)
-						lastPosition.set(mousePosition.x, mousePosition.x);
-					mousePosition = mousePosition.set(glCoords.x, glCoords.y);
-				}
+//				Vector2f glCoords = convertToOpenGLCoords(xpos, ypos);
+//				if (mousePosition.x != glCoords.x || mousePosition.y != glCoords.y)
+//				{
+				if (lastPosition.x != xpos || lastPosition.y != ypos)
+					lastPosition.set(mousePosition.x, mousePosition.x);
+				mousePosition = mousePosition.set(xpos, ypos);
+//				}
 
 			}
 		});
@@ -101,9 +103,20 @@ public class MouseHandler
 
 	public Vector2f getDirectionFromCenter()
 	{
-		if(mousePosition.x == 0 && mousePosition.y==0)
-			return null;
-		return mousePosition.sub(0, 0).normalize();
+		Vector2f position = new Vector2f(mousePosition);
+		position.sub(center);
+		position.normalize();
+		return position;
+	}
+
+	public float distanceFromCenter()
+	{
+		return center.distance(mousePosition);
+	}
+
+	public Vector2f center()
+	{
+		return new Vector2f(0, -0);
 	}
 
 	public float getXChange()

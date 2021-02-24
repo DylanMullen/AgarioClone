@@ -1,21 +1,34 @@
 package me.dylanmullen.agar.game.ecs.components;
 
+import java.util.UUID;
+
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
 import me.dylanmullen.agar.game.ecs.systems.ControlSystem;
+import me.dylanmullen.agar.game.events.api.EventHandler;
+import me.dylanmullen.agar.game.events.api.event.player.PlayerSplitEvent;
 import me.dylanmullen.agar.window.input.InputController;
 import me.dylanmullen.agar.window.input.MouseHandler;
 
 public class ControlComponent implements Component
 {
 
+	private UUID entity;
 	private PositionComponent positionComponent;
 
-	public ControlComponent(PositionComponent position)
+	private Vector3f velocity;
+
+	private long lastSplit;
+
+	public ControlComponent(UUID entity, PositionComponent position)
 	{
+		this.entity = entity;
 		this.positionComponent = position;
+		this.lastSplit = System.currentTimeMillis();
+
+		this.velocity = new Vector3f();
 	}
 
 	@Override
@@ -27,8 +40,8 @@ public class ControlComponent implements Component
 	@Override
 	public void unload()
 	{
-		ControlSystem.getInstance().deregisterComponent(this);
 		this.positionComponent = null;
+		ControlSystem.getInstance().deregisterComponent(this);
 	}
 
 	public void handleInput(InputController input)
@@ -45,21 +58,34 @@ public class ControlComponent implements Component
 			return;
 
 		Vector3f movementVector = new Vector3f(direction.x, 0, direction.y);
-		movementVector.mul(0.05f);
-		if (movementVector.x == 0 && movementVector.y == 0 && movementVector.z == 00)
+		if (movementVector.x == 0 && movementVector.z == 0)
 			return;
+
+		this.velocity.add(movementVector.x, 0, movementVector.z);
+
+		float x = clamp(mouse.distanceFromCenter() / 100, 1) * 0.2f;
+		this.velocity.mul(x);
 		move(movementVector);
 	}
 
 	private void handleControls(InputController input)
 	{
-		if (input.getKeyboard().isPressed(GLFW.GLFW_KEY_SPACE))
-			System.out.println("pressed space");
+		if (input.getKeyboard().wasPressed(GLFW.GLFW_KEY_SPACE) && System.currentTimeMillis() - lastSplit >= 200)
+		{
+			lastSplit = System.currentTimeMillis();
+			EventHandler.getInstance()
+					.fireEvent(new PlayerSplitEvent(entity, input.getMouse().getDirectionFromCenter()));
+		}
 	}
 
 	private void move(Vector3f moveVector)
 	{
-		this.positionComponent.changePosition(moveVector);
+		this.positionComponent.changePosition(velocity);
+	}
+
+	private float clamp(float value, float maximum)
+	{
+		return (value < maximum ? value : maximum);
 	}
 
 	public PositionComponent getPositionComponent()

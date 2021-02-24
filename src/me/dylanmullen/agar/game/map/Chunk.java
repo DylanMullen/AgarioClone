@@ -35,14 +35,14 @@ public class Chunk
 
 	private void init()
 	{
-		Shader shader = GameController.getInstance().getRenderSystem().getShaders().createShader("terrainShader",
-				"terrain/terrain.vert", "terrain/terrain.frag");
-		this.renderingComponent = new RenderComponent(shader, new Model(chunkVAO, scale),
-				new PositionComponent(chunkPosition));
-
-		renderingComponent.addProperty("chunkColour", new Vector3f(1f, 1f, 1f));
-		renderingComponent.addProperty("insideArea", inside);
-		renderingComponent.load();
+//		Shader shader = GameController.getInstance().getRenderSystem().getShaders().createShader("terrainShader",
+//				"terrain/terrain.vert", "terrain/terrain.frag");
+//		this.renderingComponent = new RenderComponent(shader, new Model(chunkVAO, scale),
+//				new PositionComponent(chunkPosition));
+//
+//		renderingComponent.addProperty("chunkColour", new Vector3f(1f, 1f, 1f));
+//		renderingComponent.addProperty("insideArea", inside);
+//		renderingComponent.load();
 	}
 
 	public void unload()

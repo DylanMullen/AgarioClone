@@ -38,12 +38,40 @@ public class EntityFactory
 		entity.addComponent(render);
 		entity.addComponent(new CollisionComponent(entity.getUUID(), positionComponent,
 				new CircleCollision(new Vector2f(position.x, position.z), 0.5f, true)));
-		entity.addComponent(new ControlComponent(positionComponent));
+		entity.addComponent(new ControlComponent(entity.getUUID(), positionComponent));
 		entity.addComponent(new HealthComponent(30));
 
 		for (Component component : entity.getComponents())
 			component.load();
 
+		return entity;
+	}
+
+	public static Entity createPlayerSplit(Vector3f position, Vector3f acceleration, float nutrition)
+	{
+		Entity entity = new Entity();
+
+		PositionComponent positionComponent = new PositionComponent(position);
+		entity.addComponent(positionComponent);
+
+		Shader shader = GameController.getInstance().getRenderSystem().getShaders().createShader("playerShader",
+				"player/player.vert", "player/player.frag");
+
+		RenderComponent render = new RenderComponent(shader, new Model(VAOFactory.createSquare(), 1f),
+				positionComponent);
+		render.addProperty("playerColour", new Vector3f(1, 0, 1));
+		entity.addComponent(render);
+
+		entity.addComponent(new CollisionComponent(entity.getUUID(), positionComponent,
+				new CircleCollision(new Vector2f(position.x, position.z), 0.5f, true)));
+
+		ControlComponent control = new ControlComponent(entity.getUUID(), positionComponent);
+		control.accelerate(acceleration);
+		entity.addComponent(control);
+		entity.addComponent(new HealthComponent(nutrition));
+
+		for (Component component : entity.getComponents())
+			component.load();
 		return entity;
 	}
 
@@ -55,6 +83,7 @@ public class EntityFactory
 
 		Shader shader = GameController.getInstance().getRenderSystem().getShaders().createShader("foodShader",
 				"food/food.vert", "food/food.frag");
+		shader.setAttribDisableDepthTest(true);
 
 		RenderComponent render = new RenderComponent(shader, new Model(VAOFactory.createSquare(), 0.6f),
 				positionComponent);

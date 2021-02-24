@@ -29,7 +29,6 @@ public class Shader
 		this.name = name;
 		this.vert = load(vertPath);
 		this.frag = load(fragPath);
-		attribDisableDepthTest = true;
 		create();
 	}
 
@@ -175,4 +174,9 @@ public class Shader
 		return name;
 	}
 
+	public void setAttribDisableDepthTest(boolean attribDisableDepthTest)
+	{
+		this.attribDisableDepthTest = attribDisableDepthTest;
+	}
+	
 }

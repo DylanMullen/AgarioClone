@@ -68,7 +68,7 @@ public class KeyboardHandler
 		}
 	}
 
-	public boolean isPressed(int keyCode)
+	public boolean wasPressed(int keyCode)
 	{
 		Key key = getKey(keyCode);
 		return (key == null ? false : key.isPressed());

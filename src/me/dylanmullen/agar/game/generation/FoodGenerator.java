@@ -37,7 +37,7 @@ public class FoodGenerator
 
 	public void generateFood()
 	{
-		if (currentFood >= 1000)
+		if (currentFood >= 100)
 			return;
 
 		spawnFood();

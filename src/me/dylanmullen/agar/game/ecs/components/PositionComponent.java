@@ -4,6 +4,8 @@ import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
+import me.dylanmullen.agar.game.GameController;
+
 public class PositionComponent implements Component
 {
 
@@ -48,9 +50,10 @@ public class PositionComponent implements Component
 
 	private void makeLegal(Vector3f vector)
 	{
-		if (position.x + vector.x >= 8 || position.x + vector.x <= -8)
+		float width = GameController.getInstance().getTerrainController().getTerrain().getUsableWidth();
+		if (position.x + vector.x >= width || position.x + vector.x <= -width)
 			vector.set(0, vector.y, vector.z);
-		if (position.z + vector.z >= 8 || position.z + vector.z <= -8)
+		if (position.z + vector.z >= width || position.z + vector.z <= -width)
 			vector.set(vector.x, vector.y, 0);
 	}
 

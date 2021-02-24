@@ -82,13 +82,13 @@ public class Camera
 	{
 		Vector3f movementVector = new Vector3f();
 
-		if (keyboard.isPressed(GLFW.GLFW_KEY_D))
+		if (keyboard.wasPressed(GLFW.GLFW_KEY_D))
 			movementVector.add(0.5f, 0f, 0f);
-		if (keyboard.isPressed(GLFW.GLFW_KEY_A))
+		if (keyboard.wasPressed(GLFW.GLFW_KEY_A))
 			movementVector.add(-0.5f, 0f, 0f);
-		if (keyboard.isPressed(GLFW.GLFW_KEY_S))
+		if (keyboard.wasPressed(GLFW.GLFW_KEY_S))
 			movementVector.add(0f, 0f, 0.5f);
-		if (keyboard.isPressed(GLFW.GLFW_KEY_W))
+		if (keyboard.wasPressed(GLFW.GLFW_KEY_W))
 			movementVector.add(0f, 0f, -0.5f);
 
 		move(movementVector);
