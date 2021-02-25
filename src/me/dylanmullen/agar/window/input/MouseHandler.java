@@ -52,22 +52,17 @@ public class MouseHandler
 			@Override
 			public void invoke(long window, double xpos, double ypos)
 			{
-//				Vector2f glCoords = convertToOpenGLCoords(xpos, ypos);
-//				if (mousePosition.x != glCoords.x || mousePosition.y != glCoords.y)
-//				{
 				if (lastPosition.x != xpos || lastPosition.y != ypos)
 					lastPosition.set(mousePosition.x, mousePosition.x);
 				mousePosition = mousePosition.set(xpos, ypos);
-//				}
-
 			}
 		});
 	}
 
-	public Vector2f convertToOpenGLCoords(double xPos, double yPos)
+	public Vector2f convertToOpenGLCoords()
 	{
-		float oX = (float) (xPos / (windowDimensions.width / 2) - 1.0);
-		float oY = (float) (yPos / (windowDimensions.height / 2) - 1.0);
+		float oX = (float) (mousePosition.x * 2) / windowDimensions.width - 1;
+		float oY = (float) (mousePosition.y * 2) / windowDimensions.height - 1;
 		return new Vector2f(oX, oY);
 	}
 
@@ -109,6 +104,14 @@ public class MouseHandler
 		return position;
 	}
 
+	public Vector2f getDirectionFrom(Vector2f vector)
+	{
+		Vector2f position = new Vector2f(mousePosition);
+		position.sub(vector);
+		position.normalize();
+		return position;
+	}
+
 	public float distanceFromCenter()
 	{
 		return center.distance(mousePosition);
@@ -127,5 +130,10 @@ public class MouseHandler
 	public float getYChange()
 	{
 		return lastPosition.y - mousePosition.y;
+	}
+
+	public Vector2f getMousePosition()
+	{
+		return mousePosition;
 	}
 }

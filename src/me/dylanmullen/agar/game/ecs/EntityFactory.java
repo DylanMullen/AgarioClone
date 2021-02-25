@@ -66,7 +66,6 @@ public class EntityFactory
 				new CircleCollision(new Vector2f(position.x, position.z), 0.5f, true)));
 
 		ControlComponent control = new ControlComponent(entity.getUUID(), positionComponent);
-		control.accelerate(acceleration);
 		entity.addComponent(control);
 		entity.addComponent(new HealthComponent(nutrition));
 

@@ -99,6 +99,11 @@ public class RenderSystem implements ISystem
 			return;
 		components.remove((RenderComponent) component);
 	}
+	
+	public Matrix4f getProjection()
+	{
+		return projection;
+	}
 
 	public ShaderManager getShaders()
 	{
